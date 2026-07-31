@@ -25,9 +25,11 @@ website.</p>
 
 <div class="card">
   <h2 style="margin-top:0">The short version</h2>
-  <p>CoHiro stores your email address, an optional display name, and whatever you and the people you
-  live with put into your shared list and inventory. It is kept in Germany. There is no advertising,
-  no tracking, no profiling, and nothing is sold or shared with anyone for marketing.</p>
+  <p>CoHiro stores your email address, a display name, and whatever you and the people you
+  live with put into your shared list and inventory. Choosing the name is optional; having one is
+  not. If you skip it, we use the part of your email address before the @ sign. It is kept in
+  Germany. There is no advertising, no tracking, no profiling, and nothing is sold or shared with
+  anyone for marketing.</p>
   <p style="margin-bottom:0">Three things are worth knowing before you read further, because they
   surprise people: notifications quote what you typed, your display name defaults to part of your
   email address, and deleting your account does not delete what you added to a shared household.
@@ -45,8 +47,8 @@ Company details: <a href="https://niugio.com/impressum.html">Impressum</a>.</p>
 <p>Your <strong>email address</strong>, because it is how you sign in and how we send you a code if
 you forget your password. Your <strong>password</strong> is never stored: only a cryptographic hash
 of it, which cannot be turned back into your password.</p>
-<p>A <strong>display name</strong>, which is optional. <strong>If you do not choose one, we use the
-part of your email address before the @ sign.</strong> So if you sign up as
+<p>A <strong>display name</strong>. Choosing one is optional; having one is not. <strong>If you do
+not choose one, we use the part of your email address before the @ sign.</strong> So if you sign up as
 <em>firstname.lastname@example.com</em> and skip the name field, the people in your household will
 see <em>firstname.lastname</em>. You can change it at any time in the app under Account.</p>
 
@@ -81,15 +83,21 @@ its model and operating system version.</p>
 <p>It does <strong>not</strong> contain your email address, your name, or anything you typed into
 the app. The name of your device is removed before the report is sent, because people often name
 their phone after themselves.</p>
+<p>Each install of the app carries a random identifier, so that a hundred reports from one broken
+phone read as one problem rather than a hundred. It is created on your device, it is not your
+account, and it is not connected to your email address or your name.</p>
 <p>Crash reporting cannot currently be turned off. It is the only way we learn that something is
 broken, and it carries nothing that identifies you.</p>
-<p>We do not use any analytics or tracking product. There is no advertising in CoHiro and no
-profiling of any kind.</p>
+<p>We do not use any advertising or analytics service, and we have switched off the crash tool's
+optional usage statistics, so crash reports are the only diagnostics that leave your device. There
+is no advertising in CoHiro and no profiling of any kind.</p>
 
 <h2>5. Where your data is, and who processes it</h2>
 <p>Your account, and everything in your households, is stored in the <strong>European Union</strong>,
-in Frankfurt. Crash reports are kept in the European Union as well. Notifications are the one
-exception, because to reach your phone they have to leave it. Section 3 explains that.</p>
+in Frankfurt. Crash reports are kept in the European Union as well. Two things are narrower than
+"everything stays in Europe", and we would rather name them: notifications have to leave to reach
+your phone (section 3 explains that), and the short-lived server functions that do things like
+delete an account may run on machines outside the EU while they work. They store nothing.</p>
 
 <p>Three of the four companies below are American businesses running European infrastructure. That
 is ordinary and it is lawful, but it is not the same thing as saying your data never leaves Europe,
