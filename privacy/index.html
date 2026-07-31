@@ -67,8 +67,8 @@ camera is used only to read a QR code when joining a household; no image is stor
 
 <h2>3. Notifications quote what you typed</h2>
 <p>When someone starts a shop or calls one off, the people in the household get a notification. The
-<strong>household name is the title</strong> and any <strong>note the person wrote is quoted in the
-body</strong>.</p>
+<strong>household name is the title</strong>. The body names <strong>who did it, by their display
+name</strong>, and quotes <strong>any note they wrote</strong>.</p>
 <p>To deliver it, that text passes through Expo's push service and then through Apple's or Google's
 notification service, and it can appear on a locked screen. This is how push notifications work on
 every app, but it means the text you type into a note is not confined to Germany and is not confined
@@ -87,19 +87,27 @@ broken, and it carries nothing that identifies you.</p>
 profiling of any kind.</p>
 
 <h2>5. Where your data is, and who processes it</h2>
-<p>Everything is stored in the <strong>European Union</strong>. The database and accounts are hosted
-by Supabase in Frankfurt, Germany. Crash reports go to Sentry's European region.</p>
+<p>Your account, and everything in your households, is stored in the <strong>European Union</strong>,
+in Frankfurt. Crash reports are kept in the European Union as well. Notifications are the one
+exception, because to reach your phone they have to leave it. Section 3 explains that.</p>
+
+<p>Three of the four companies below are American businesses running European infrastructure. That
+is ordinary and it is lawful, but it is not the same thing as saying your data never leaves Europe,
+so we would rather write it out than let one word in a table imply something tidier than the truth.</p>
 <table>
   <tr><th>Who</th><th>What they receive</th><th>Where</th></tr>
   <tr><td>Supabase</td><td>Your account and everything in your households</td><td>Frankfurt, Germany</td></tr>
-  <tr><td>Sentry</td><td>Crash reports (no personal data)</td><td>European Union</td></tr>
-  <tr><td>Resend</td><td>Your email address, to deliver sign-up and password emails</td><td>Ireland</td></tr>
-  <tr><td>Expo, Apple, Google</td><td>Notification text and a device token, only if you enable notifications</td><td>Outside the EU</td></tr>
+  <tr><td>Sentry</td><td>Crash reports: what went wrong, where in the code, and the device model and operating system. Not your email address, not your name, and nothing you typed into the app.</td><td>European Union</td></tr>
+  <tr><td>Resend</td><td>Your email address, and the contents of the sign-up and password emails we send you</td><td>Sent from Ireland. The company itself is American.</td></tr>
+  <tr><td>Expo, Apple, Google</td><td><strong>Only if you turn notifications on:</strong> your household's name, the display name of whoever did the thing, any note they wrote, and a code that identifies your device</td><td>Outside the EU</td></tr>
 </table>
-<p class="small"><!-- GAP: DPA STATUS. Replace this whole paragraph once task 3 is answered. Do NOT
-publish it as-is. -->
-<strong>[TO CONFIRM BEFORE PUBLISHING: whether a data processing agreement is in place with each
-processor above, per GDPR Art. 28.]</strong></p>
+<p>We have a data processing agreement with every one of them, which is what
+<strong>Article 28 of the GDPR</strong> requires of us. For Supabase, Resend and Expo it forms part
+of the terms we agreed to when we signed up. With Sentry we accepted it separately.</p>
+<p>Where any of them moves data outside the European Union, that transfer is covered by the
+<strong>standard contractual clauses</strong> the European Commission publishes for exactly this
+purpose, and in some cases also by the EU-US Data Privacy Framework. None of them is permitted to
+use your data for their own purposes, to sell it, or to combine it with data from anywhere else.</p>
 
 <h2>6. Deleting your account</h2>
 <p>You can delete your account yourself, in the app under <strong>Account</strong>. There is no need
