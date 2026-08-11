@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.niugio.listr",
+      "sha256_cert_fingerprints": [
+        "D5:A2:1C:62:DA:87:B6:85:92:C2:CB:9A:A2:F7:FF:1B:88:F9:48:AE:DF:6A:2E:BE:D8:FF:7B:47:03:E8:68:CA"
+      ]
+    }
+  }
+]
