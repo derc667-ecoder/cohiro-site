@@ -3,11 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CoHiro: your home, on the same page</title>
-<meta name="description" content="CoHiro is a shared shopping list and household inventory for the people you live with.">
+<title>CoHiro: a shared shopping list and household inventory</title>
+<meta name="description" content="One shopping list your whole household can add to, and a picture of what is actually in the cupboard. CoHiro puts everyone on the same page, so remembering is not one person's job.">
 <link rel="canonical" href="https://cohiro.app/">
+
+<!-- Open Graph / Twitter. CoHiro spreads by one person telling the people they live with,
+     so a shared link has to look like something. Without these it renders as a bare URL.
+     The image is served from this domain: no external requests anywhere on this site. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cohiro.app/">
+<meta property="og:title" content="CoHiro: a shared shopping list and household inventory">
+<meta property="og:description" content="One shopping list your whole household can add to, and a picture of what is actually in the cupboard. So remembering is not one person's job.">
+<meta property="og:image" content="https://cohiro.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CoHiro. Your home, on the same page.">
+<meta property="og:site_name" content="CoHiro">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211E2B" media="(prefers-color-scheme: dark)">
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBF7F1'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='%236A4FB0' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="/style.css">
+
+<!-- Structured data, inline: it tells a search engine what this page is about without a
+     single external request. Kept minimal and true - no ratings, no fake prices. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "CoHiro",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "iOS, Android",
+  "description": "A shared shopping list and household inventory for the people you live with.",
+  "url": "https://cohiro.app/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Niugio UG (haftungsbeschränkt)",
+    "url": "https://niugio.com"
+  }
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -17,23 +54,55 @@
 </header>
 <main id="main">
   <h1>Your home, on the same page</h1>
-  <p class="lede">A shared shopping list and household inventory for the people you live with.
-  One list everyone can add to, and a picture of what is actually in the cupboard.</p>
+  <p class="lede">One shopping list the whole household can add to, and a picture of what is
+  actually in the cupboard. CoHiro does the remembering, so it never all lands on one person.</p>
 
   <div class="card">
-    <p class="muted" style="margin:0">CoHiro is not released yet. This page exists so the app's
-    privacy policy and account controls have a permanent home.</p>
+    <p style="margin:0"><strong>Coming soon to the App&nbsp;Store and Google&nbsp;Play.</strong></p>
+    <p class="muted" style="margin:0.5rem 0 0">CoHiro is in testing. This page is the app's
+    permanent home for its privacy policy, support and account controls.</p>
   </div>
+
+  <h2>What it does</h2>
+
+  <h3>One list, every phone</h3>
+  <p>Add something and it is on everyone's phone straight away. When someone is at the shops,
+  the rest of you watch it happen, so nobody buys the milk twice and nobody has to send a
+  photo of a scrap of paper.</p>
+
+  <h3>An inventory that speaks up</h3>
+  <p>Keep a simple picture of what you have: in stock, running low, or out. Anything that runs
+  low or out puts itself on the shopping list, without anyone remembering to do it. That is the
+  part that makes the list trustworthy.</p>
+
+  <h3>Shopping, coordinated</h3>
+  <p>Say you are heading to the shops and everyone gets a heads-up in time to add what they
+  need. Or ask whether anyone can go, and let someone volunteer. When the shopping is put away,
+  the inventory updates itself.</p>
+
+  <h3>Built for a household, not a person</h3>
+  <p>Invite the people you live with, and everyone has the same rights: anyone can add, anyone
+  can shop, anyone can invite. You can belong to more than one household, which is what a
+  flatshare and a family actually look like.</p>
+
+  <h2>Where your data lives</h2>
+  <p>In Frankfurt, Germany, with a European provider. CoHiro has no advertising, no tracking,
+  and no third-party requests on this website at all. You can delete your account yourself,
+  from inside the app, and it really is deleted. The
+  <a href="/privacy">privacy policy</a> says exactly what is stored and why, in plain
+  language.</p>
 
   <h2>Pages</h2>
   <ul>
     <li><a href="/privacy">Privacy policy</a></li>
+    <li><a href="/support">Support</a></li>
     <li><a href="/delete-account">Delete your account</a></li>
   </ul>
 </main>
 <footer class="site">
   <p>CoHiro is made by Niugio UG (haftungsbeschränkt), Urbanstraße 71, 10967 Berlin, Germany.<br>
-  <a href="/privacy">Privacy</a> &middot; <a href="/delete-account">Delete your account</a> &middot;
+  <a href="/privacy">Privacy</a> &middot; <a href="/support">Support</a> &middot;
+  <a href="/delete-account">Delete your account</a> &middot;
   <a href="https://niugio.com/impressum.html">Impressum</a></p>
 </footer>
 </div>

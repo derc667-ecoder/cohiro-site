@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-maintained: there is no build step here on purpose, so adding a page means
+     adding four lines below. Keep lastmod honest; a date that never changes is worse
+     than no date at all. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://cohiro.app/</loc>
+    <lastmod>2026-08-10</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://cohiro.app/privacy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cohiro.app/support</loc>
+    <lastmod>2026-08-08</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cohiro.app/delete-account</loc>
+    <lastmod>2026-08-08</lastmod>
+    <priority>0.6</priority>
+  </url>
+</urlset>

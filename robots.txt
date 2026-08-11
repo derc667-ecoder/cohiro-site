@@ -1,0 +1,8 @@
+# cohiro.app
+# Everything here is public and meant to be found: the product page, the privacy
+# policy both app stores link to, support, and the account-deletion page Google
+# Play requires to be reachable without signing in.
+User-agent: *
+Allow: /
+
+Sitemap: https://cohiro.app/sitemap.xml

@@ -7,6 +7,18 @@
 <meta name="description" content="What the CoHiro app collects, why, who it is shared with, and how to delete it.">
 <link rel="canonical" href="https://cohiro.app/privacy">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBF7F1'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='%236A4FB0' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cohiro.app/privacy">
+<meta property="og:title" content="Privacy policy | CoHiro">
+<meta property="og:description" content="What CoHiro stores, why, and where it lives. In plain language, with no tracking and no advertising.">
+<meta property="og:image" content="https://cohiro.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="CoHiro">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211E2B" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -21,17 +33,18 @@
 <p class="lede">This covers the <strong>CoHiro app</strong>. The
 <a href="https://niugio.com/privacy">niugio.com website policy</a> is separate and covers only that
 website.</p>
-<p class="small">Last updated: 31 July 2026.</p>
+<p class="small">Last updated: 10 August 2026.</p>
 
 <div class="card">
   <h2 style="margin-top:0">The short version</h2>
   <p>CoHiro stores your email address, a display name, and whatever you and the people you
   live with put into your shared list and inventory. Choosing the name is optional; having one is
-  not. If you skip it, we use the part of your email address before the @ sign. It is kept in
+  not. If you skip it, we use the name Apple or Google shared when you signed in, and if there is
+none, the part of your email address before the @ sign. It is kept in
   Germany. There is no advertising, no tracking, no profiling, and nothing is sold or shared with
   anyone for marketing.</p>
   <p style="margin-bottom:0">Three things are worth knowing before you read further, because they
-  surprise people: notifications quote what you typed, your display name defaults to part of your
+  surprise people: notifications quote what you typed, your display name can default to part of your
   email address, and deleting your account does not delete what you added to a shared household.
   Each is explained below.</p>
 </div>
@@ -44,11 +57,31 @@ Company details: <a href="https://niugio.com/impressum.html">Impressum</a>.</p>
 <h2>2. What we store, and why</h2>
 
 <h3>Your account</h3>
-<p>Your <strong>email address</strong>, because it is how you sign in and how we send you a code if
-you forget your password. Your <strong>password</strong> is never stored: only a cryptographic hash
-of it, which cannot be turned back into your password.</p>
-<p>A <strong>display name</strong>. Choosing one is optional; having one is not. <strong>If you do
-not choose one, we use the part of your email address before the @ sign.</strong> So if you sign up as
+<p>Your <strong>email address</strong>, because it is how we know which account is yours and where
+we send you a code if you forget your password. It reaches us one of two ways: you type it when you
+sign up with a password, or Apple or Google hands it to us, already verified, when you use
+<strong>Sign in with Apple</strong> or <strong>Sign in with Google</strong>. Your
+<strong>password</strong> is never stored: only a cryptographic hash of it, which cannot be turned
+back into your password. And if you sign in with Apple or Google, there is no CoHiro password at
+all: the provider confirms who you are, and we never receive the password you use with them.</p>
+
+<p><strong>Signing in with Apple or Google.</strong> These buttons create the same kind of account as
+signing up with an email and password: same household, same lists, same rules, same rights. The
+provider sends us exactly three things: your <strong>verified email address</strong>, a
+<strong>stable user id</strong> (the provider's way of telling us &ldquo;same person as last
+time&rdquo;), and your <strong>name</strong>, if you chose to share it. Nothing else: no contacts, no
+photos, no password. One verified email address means one account: if you sign up with a password
+using your Gmail address and later tap Sign in with Google with that same address, you land in your
+existing account, not a duplicate.</p>
+
+<p><strong>Apple's Hide My Email.</strong> If you choose it, Apple gives us a <strong>private relay
+address</strong> (it looks like <em>x1y2z3abc@privaterelay.appleid.com</em>) instead of your real
+one. The relay address is the address we hold: it is your sign-in identity here, and any email we
+send you is addressed to it and routes through Apple's relay to your real inbox. We never learn your
+real address, and forwarding is controlled from your Apple ID settings, not by us.</p>
+<p>A <strong>display name</strong>. Choosing one is optional; having one is not. If you do not
+choose one, we use the name Apple or Google shared when you signed in, and if there is none, the part
+of your email address before the @ sign. A name you set yourself is never overwritten. So if you sign up as
 <em>firstname.lastname@example.com</em> and skip the name field, the people in your household will
 see <em>firstname.lastname</em>. You can change it at any time in the app under Account.</p>
 
@@ -130,10 +163,21 @@ of the terms we agreed to when we signed up. With Sentry we accepted it separate
 purpose, and in some cases also by the EU-US Data Privacy Framework. None of them is permitted to
 use your data for their own purposes, to sell it, or to combine it with data from anywhere else.</p>
 
+<p><strong>When you sign in with Apple or Google</strong>, the sign-in itself happens on the
+provider's servers, under the provider's own privacy policy: they necessarily learn that you use
+CoHiro. What they send us afterwards (your verified email or relay address, your user id with them,
+your name if you shared it) is stored with <strong>Supabase in Frankfurt</strong>, like everything
+else about your account. Signing in this way adds no tracking and no advertising: we use the
+providers to know who you are, nothing more.</p>
+
 <h2>6. Deleting your account</h2>
 <p>You can delete your account yourself, in the app under <strong>Account</strong>. There is no need
 to ask us. Full instructions are on the
 <a href="/delete-account">account deletion page</a>.</p>
+<p>This includes the identity Apple or Google passed to us: the email or relay address, the provider
+user id and your name are all deleted with the account. If you used Hide My Email you can also switch
+the relay address off in your Apple ID settings; that is between you and Apple, and works whether or
+not your CoHiro account still exists.</p>
 <p><strong>What is deleted:</strong> your email address, your display name, your settings, and the
 record of your devices.</p>
 <p><strong>What is not deleted:</strong> if you shared a household with other people, the things you
