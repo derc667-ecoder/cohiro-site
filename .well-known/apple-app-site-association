@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["4G55Z778KC.com.niugio.listr"],
+        "components": [
+          { "/": "/join/*", "comment": "Invite links open the app straight at the join screen." }
+        ]
+      }
+    ]
+  }
+}
