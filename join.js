@@ -108,7 +108,7 @@ var de = {
   // HTTP 404 and serves 404.html. It works for a person and is invisible to every link previewer
   // there is: facebookexternalhit (WhatsApp, Messenger), iMessage, Slack and Twitterbot all refuse
   // to render a card for a non-200 response. So every invite CoHiro has ever sent went out as a
-  // bare, unadorned link, however correct the eight og: tags on the page are. Confirmed by the
+  // bare, unadorned link, however correct the nine og: tags on the page are. Confirmed by the
   // owner on 2026-08-21, pasting a real invite into WhatsApp: no card at all.
   //
   // The new form puts the code in the query instead - /join/?c=<CODE> - which IS join/index.html:
@@ -163,8 +163,9 @@ var de = {
   // Taking the segment whole and demanding it be exactly a code looks stricter and is simply
   // wrong here: it retires every punctuated link in every message history at once, and worse, the
   // app would still JOIN on that URL (lib/parseJoinUrl.ts keeps the same tolerance, deliberately
-  // and for this reason) while this page told the reader there was no code. Verified as a real
-  // regression before it shipped, not reasoned about afterwards.
+  // and for this reason) while this page told the reader there was no code. Not a hypothetical and
+  // not caught by reasoning: the four punctuation shapes were driven through this file and all
+  // four regressed, and the broken version was live on the site for some minutes before this.
   //
   // Not decoded, on purpose: location.pathname is still percent-encoded, so an encoded payload
   // keeps its % signs, fails the class, and no decoder ever runs. The captured run is alnum by
