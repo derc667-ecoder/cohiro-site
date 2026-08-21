@@ -4,7 +4,8 @@
       {
         "appIDs": ["4G55Z778KC.com.niugio.listr"],
         "components": [
-          { "/": "/join/*", "comment": "Invite links open the app straight at the join screen." }
+          { "/": "/join/*", "comment": "Invite links open the app straight at the join screen." },
+          { "/": "/de/join/*", "comment": "The German invite path. Mirrors app.json's Android intentFilters, which already list both prefixes." }
         ]
       }
     ]
