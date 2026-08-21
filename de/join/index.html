@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Du wurdest zu einem Haushalt bei CoHiro eingeladen</title>
-<meta name="description" content="Jemand aus deinem Haushalt möchte bei CoHiro eine Einkaufsliste und einen Vorrat mit dir teilen.">
+<meta name="description" content="Jemand, mit dem du zusammenwohnst, möchte bei CoHiro eine Einkaufsliste und einen Vorrat mit dir teilen.">
 <link rel="canonical" href="https://cohiro.app/de/join/">
 
 <!-- Deliberately NOT indexed, for the twins' reason: a real visit carries a one-off invite
@@ -20,9 +20,12 @@
      renders it in German because this path starts with /de/. That is what keeps the German
      copy in ONE place - join.js's `de` object - rather than in a third file free to drift
      from the page real invites actually get. THE COST, recorded rather than hidden: with
-     JavaScript disabled this page declares lang="de" and shows English. It buys a single
-     source for the German on a path no invite link reaches, and the page invite links DO
-     reach cannot be a German file under any design.
+     JavaScript disabled this page declares lang="de" in the head and shows an English body.
+     That is why <body> carries lang="en": a screen reader is then told the truth about the
+     words actually on the page, and join.js sets it to "de" at the moment the German lands.
+     Do not delete that attribute - without it a German voice reads English sentences. The
+     trade buys a single source for the German on a path no invite link reaches, and the page
+     invite links DO reach cannot be a German file under any design.
 
      DO NOT ADD de/404.html. GitHub Pages ignores it - one 404 per site, at the root. -->
 <meta name="robots" content="noindex, follow">
@@ -30,7 +33,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cohiro.app/de/join/">
 <meta property="og:title" content="Du wurdest zu einem Haushalt bei CoHiro eingeladen">
-<meta property="og:description" content="Jemand aus deinem Haushalt möchte eine Einkaufsliste und einen Vorrat mit dir teilen.">
+<meta property="og:description" content="Jemand, mit dem du zusammenwohnst, möchte eine Einkaufsliste und einen Vorrat mit dir teilen.">
 <meta property="og:image" content="https://cohiro.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -44,39 +47,13 @@
 <link rel="stylesheet" href="/style.css">
 <script src="/join.js" defer></script>
 
-<!-- MIRROR WARNING: this page and its twin (join/index.html <-> 404.html) render the same
-     invite screen, and GitHub Pages serves 404.html for every REAL invite URL, because
-     /join/<CODE> is not a file. So the page a visitor actually opens is 404.html, and
-     join/index.html is the one almost nobody sees. Edit BOTH, or the fix reaches nobody -
-     that is exactly how the 2026-08-20 overflow fix (16-character codes running off a phone
-     screen) was applied to join/index.html, verified by fetching /join/, reported as done, and
-     never once served to a person holding a real invite link.
-
-     THE SAME RULE IS WHY THERE IS NO GERMAN INVITE PAGE. Pages has exactly one 404.html, so
-     /de/join/<CODE> is served THIS file too. The German therefore cannot be a file; it is a
-     runtime swap, and EVERY user-facing string below carries a data-i18n hook that /join.js
-     looks up in its `de` object (with data-de-href beside it where a link has a German target,
-     and data-de-label where the string is one a screen reader speaks). KEEP THE HOOKS: a
-     string that loses its hook stays English for every German reader, and nothing about the
-     page will look wrong in English while it happens. There is a third file with this same
-     body, de/join/index.html, localised by the same script.
-
-     NOW SHARED, so one edit lands on every copy:
-       - the CSS for .code and .steps, in /style.css under "Invite pages"
-       - the code-extraction script AND the whole German catalog, in /join.js
-
-     STILL DUPLICATED, so it must be edited in EVERY copy: the body markup and its English
-     copy, plus the head - <title>, the description, the canonical link, the Open Graph tags
-     and the breadcrumb JSON-LD. As of this change the two English files are identical apart
-     from the indexing comment above, which is deliberately longer in 404.html because that is
-     the file where the Pages 404 trick is worth explaining. -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
  {"@type":"ListItem","position":1,"name":"Startseite","item":"https://cohiro.app/"},
  {"@type":"ListItem","position":2,"name":"Haushalt beitreten","item":"https://cohiro.app/de/join/"}]}
 </script>
 </head>
-<body>
+<body lang="en">
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 <div class="wrap">
 <header class="site">

@@ -25,13 +25,17 @@
 // sentences into five hooks apiece - which the app catalog refuses to do, on the grounds that a
 // translator has to be able to reorder a whole sentence. \u00a0 is written as an escape rather
 // than typed, because an invisible character in a source file is one nobody can review.
+//
+// THERE IS NO ESCAPE FOR A LITERAL ASTERISK. A string containing one would split on it and come
+// out with the wrong halves bolded, silently. No German string needs one today; a string that
+// ever does has to be reworded, or this syntax has to grow an escape first.
 var de = {
   skip: 'Zum Inhalt springen',
   crumbNav: 'Brotkrumennavigation',
   home: 'Startseite',
   crumb: 'Haushalt beitreten',
   h1: 'Du wurdest eingeladen',
-  lede: 'Jemand aus deinem Haushalt möchte bei CoHiro eine Einkaufsliste und einen Vorrat mit dir teilen.',
+  lede: 'Jemand, mit dem du zusammenwohnst, möchte bei CoHiro eine Einkaufsliste und einen Vorrat mit dir teilen.',
   codeLabel: 'Dein Einladungscode',
   noCode: 'sieh in deiner Nachricht nach',
   hint: 'Wenn du CoHiro schon hast, öffnet dieser Link die App direkt zum Beitreten.',
@@ -44,13 +48,13 @@ var de = {
   aboutLink: 'Mehr über CoHiro',
   fine: 'Mit einem Einladungscode trittst du genau einem Haushalt bei. Er läuft ab, und wer ihn geschickt hat, kann ihn jederzeit ungültig machen. Er enthält nichts über dich und nichts über die andere Person: siehe',
   fineLink: 'Datenschutzerklärung',
-  madeBy: 'CoHiro kommt von der Niugio UG (haftungsbeschränkt), Urbanstraße 71, 10967 Berlin, Germany.',
+  madeBy: 'CoHiro kommt von der Niugio UG (haftungsbeschränkt), Urbanstraße 71, 10967 Berlin, Deutschland.',
   privacy: 'Datenschutz',
   terms: 'Nutzungsbedingungen',
   support: 'Hilfe',
   del: 'Konto löschen',
   title: 'Du wurdest zu einem Haushalt bei CoHiro eingeladen',
-  titleCode: 'Haushalt bei CoHiro beitreten mit Code ',
+  titleCode: 'Haushalt bei CoHiro beitreten, Code ',
 };
 
 // WHICH LANGUAGE, in this order: an explicit /de/ URL always wins, then the reader's browser.
@@ -63,12 +67,21 @@ var de = {
 // sender's locale is only a guess about the recipient - the browser's own preference is the one
 // piece of evidence on the page about which language this person actually reads. Do not "fix"
 // this into a redirect, and do not delete it because the rest of the site does not do it.
+//
+// ONLY navigator.languages[0] IS READ, AND THAT IS DELIBERATE. Testing the whole list instead -
+// languages.some(/^de/i) - would flip a German speaker who has deliberately set an English UI
+// with German further down into German, against the preference they actually stated first. The
+// top entry is the answer to "which language does this person want"; the rest of the list is the
+// answer to "which can they read", and that is a different question.
 (function () {
   var pref = (navigator.languages && navigator.languages[0]) || navigator.language || '';
   var german = location.pathname.indexOf('/de/') === 0 || /^de/i.test(pref);
 
   if (german) {
     document.documentElement.lang = 'de';
+    // de/join/index.html ships <body lang="en"> so that with JavaScript off its English markup is
+    // honestly labelled English under a German <head>. Once the German is in, the body is German.
+    document.body.lang = 'de';
     document.title = de.title;
     document.querySelectorAll('[data-i18n],[data-de-href],[data-de-label]').forEach(function (n) {
       var s = de[n.dataset.i18n];
