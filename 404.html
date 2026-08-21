@@ -92,8 +92,13 @@
      site ROOT - so it is served THIS English file. That is why every user-facing string below
      carries a data-i18n hook that /join.js looks up in its `de` object (with data-de-href
      beside it where a link has a German target, and data-de-label where the string is one a
-     screen reader speaks). The only two strings without a hook are the wordmark and
-     "Impressum", which read the same in both languages. A hook was missing from the footer's
+     screen reader speaks). The only strings with no TEXT hook are the wordmark, "Impressum"
+     and the switcher's own two labels: the first two read the same in both languages, and
+     "English" and "Deutsch" are each already written in the language they name, so translating
+     either one is the single thing that would be wrong. The wordmark does now carry a
+     data-de-href, because where a home link POINTS is language-dependent even where its text is
+     not, and the switcher is rebuilt outright by /join.js rather than hooked. A hook was
+     missing from the footer's
      Support link until 2026-08-21, and the sentence you are reading claimed otherwise the
      whole time. KEEP THE HOOKS: a string that loses its hook stays English for every German
      reader, and nothing about the page will look wrong in English while it happens. There is a
@@ -125,7 +130,7 @@
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 <div class="wrap">
 <header class="site">
-  <a class="wordmark" href="/"><span class="co">Co</span>Hiro<span class="dot">.</span></a>
+  <a class="wordmark" href="/" data-de-href="/de/"><span class="co">Co</span>Hiro<span class="dot">.</span></a>
   <!-- THE SWITCHER IS REWRITTEN AT RUNTIME ON THIS PAGE, AND ONLY ON THIS PAGE. A static
        href="/de/join/" would drop the invite code, which is the single most destructive thing
        that could happen here. /join.js carries location.search across, swaps which side is the
@@ -140,12 +145,8 @@
   </nav>
 </header>
 <main id="main">
-<!-- TODO(de-home): /de/ EXISTS as of 2026-08-21, but the German rendering still points
-     Startseite at the ENGLISH home, here and in the footer, because those two links carry no
-     data-de-href. The four static German pages carry the same marker. Held for the EN/DE
-     switcher change, which repoints every page at once. -->
 <nav class="small muted" aria-label="Breadcrumb" data-de-label="crumbNav" style="margin:0 0 1rem">
-  <a href="/" data-i18n="home">Home</a> &rsaquo; <span aria-current="page" data-i18n="crumb">Join a household</span>
+  <a href="/" data-de-href="/de/" data-i18n="home">Home</a> &rsaquo; <span aria-current="page" data-i18n="crumb">Join a household</span>
 </nav>
   <h1 data-i18n="h1">You have been invited</h1>
   <p class="lede" data-i18n="lede">Someone you live with wants to share a shopping list and household inventory
@@ -169,7 +170,7 @@
   <h2 data-i18n="whatIs">What is CoHiro?</h2>
   <p><span data-i18n="about">One shopping list the whole household can add to, and a picture of what is actually in
   the cupboard. Anything that runs low puts itself on the list, so remembering is not one
-  person's job.</span> <a href="/" data-i18n="aboutLink">More about CoHiro</a>.</p>
+  person's job.</span> <a href="/" data-de-href="/de/" data-i18n="aboutLink">More about CoHiro</a>.</p>
 
   <p class="small muted"><span data-i18n="fine">An invite code lets you join one household. It expires, and whoever
   sent it can revoke it at any time. It contains nothing about you, and nothing about them:
@@ -177,7 +178,7 @@
 </main>
 <footer class="site">
   <p><span data-i18n="madeBy">CoHiro is made by Niugio UG (haftungsbeschränkt), Urbanstraße 71, 10967 Berlin, Germany.</span><br>
-  <a href="/" data-i18n="home">Home</a> &middot;
+  <a href="/" data-de-href="/de/" data-i18n="home">Home</a> &middot;
   <a href="/privacy/" data-de-href="/de/privacy/" data-i18n="privacy">Privacy</a> &middot;
   <a href="/terms/" data-de-href="/de/terms/" data-i18n="terms">Terms</a> &middot;
   <a href="/support/" data-de-href="/de/support/" data-i18n="support">Support</a> &middot;
