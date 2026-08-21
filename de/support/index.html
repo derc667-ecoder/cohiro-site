@@ -6,6 +6,20 @@
 <title>Hilfe &middot; CoHiro</title>
 <meta name="description" content="Wie du Hilfe zu CoHiro bekommst, ein Problem meldest oder dir eine Funktion wünschst.">
 <link rel="canonical" href="https://cohiro.app/de/support/">
+
+<!-- THE TWO LANGUAGE VERSIONS OF THIS PAGE, EACH NAMING THE WHOLE SET INCLUDING ITSELF. A
+     self-reference is not optional - an annotation set that omits its own page is discarded
+     whole - and the set here is byte-identical to the one on the counterpart, which is what
+     makes it reciprocal. x-default is the ENGLISH url, because English is the root: /privacy/
+     and /terms/ are hardcoded in shipped store binaries and in the Google OAuth client, Pages
+     cannot issue a 301, so the English page can never move under an /en/ prefix. A further
+     locale is one more line here and the same block on the new page.
+     .github/check-hreflang.py fails the build if the set stops being reciprocal, if a
+     canonical stops matching its own self-reference, or if any of these urls stops answering
+     200 on the live site. -->
+<link rel="alternate" hreflang="en" href="https://cohiro.app/support/">
+<link rel="alternate" hreflang="de" href="https://cohiro.app/de/support/">
+<link rel="alternate" hreflang="x-default" href="https://cohiro.app/support/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBF7F1'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='%236A4FB0' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cohiro.app/de/support/">

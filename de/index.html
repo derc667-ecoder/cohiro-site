@@ -7,6 +7,20 @@
 <meta name="description" content="Eine Einkaufsliste, die der ganze Haushalt gemeinsam pflegt, und ein Vorrat, der zeigt, was wirklich da ist. CoHiro merkt sich das Ganze, damit nie alles an einer Person hängen bleibt.">
 <link rel="canonical" href="https://cohiro.app/de/">
 
+<!-- THE TWO LANGUAGE VERSIONS OF THIS PAGE, EACH NAMING THE WHOLE SET INCLUDING ITSELF. A
+     self-reference is not optional - an annotation set that omits its own page is discarded
+     whole - and the set here is byte-identical to the one on the counterpart, which is what
+     makes it reciprocal. x-default is the ENGLISH url, because English is the root: /privacy/
+     and /terms/ are hardcoded in shipped store binaries and in the Google OAuth client, Pages
+     cannot issue a 301, so the English page can never move under an /en/ prefix. A further
+     locale is one more line here and the same block on the new page.
+     .github/check-hreflang.py fails the build if the set stops being reciprocal, if a
+     canonical stops matching its own self-reference, or if any of these urls stops answering
+     200 on the live site. -->
+<link rel="alternate" hreflang="en" href="https://cohiro.app/">
+<link rel="alternate" hreflang="de" href="https://cohiro.app/de/">
+<link rel="alternate" hreflang="x-default" href="https://cohiro.app/">
+
 <!-- THIS PAGE IS A TRANSCREATION, NOT A TRANSLATION, AND IT IS THE ONLY PAGE ON THE SITE THAT IS.
      Do not diff it sentence by sentence against index.html and "fix" the gaps: the headline, the
      lede and the four section headings were WRITTEN in German, because the English H1 ("Your home,

@@ -17,7 +17,26 @@
      real file answering a real 200, so a link in that shape never arrives here at all. Both
      halves stay. Path-form links live in other people's message history indefinitely and
      nothing shipped from this repo can reach them. An installed app never gets here in either
-     shape - Universal Links and App Links intercept the URL before a browser is involved. -->
+     shape - Universal Links and App Links intercept the URL before a browser is involved.
+
+     AND DELIBERATELY NO hreflang, WHICH IS THE ONE THING IN THIS HEAD THAT LOOKS LIKE AN
+     OVERSIGHT AND IS NOT. Every other page on this site carries a three-line alternate set
+     naming its English url, its German url and itself. These three files cannot, and the
+     reason is NOT the noindex above - it is that 404.html HAS NO URL OF ITS OWN. An hreflang
+     set is required to name the page's own address, and 404.html is served at every path that
+     is not a file: /join/<CODE>, /de/join/<CODE>, /anything. So at the exact moment a German
+     invite is opened, that file would be asserting it is https://cohiro.app/join/ and that
+     English is the x-default, while rendering German at a /de/ url. That is a wrong pair, and
+     a wrong pair is worse than none, because nobody can see it. hreflang must also be
+     RECIPROCAL, and an annotation set that cannot include 404.html cannot be closed for
+     join/index.html or de/join/index.html either: in the shape that actually carries traffic,
+     that file is what both of their counterparts resolve to.
+
+     THE SWITCHER IN THE HEADER IS THE OPPOSITE CASE AND IT STAYS. It is for a person, who can
+     see which language is on the screen, and /join.js rebuilds it against the url actually in
+     the address bar. A crawler-facing claim needs a stable url; a human-facing control does
+     not. .github/check-hreflang.py enforces exactly this split - it REQUIRES zero alternates
+     on any page that loads /join.js - so an hreflang added here reddens the build. -->
 <meta name="robots" content="noindex, follow">
 
 <meta property="og:type" content="website">
