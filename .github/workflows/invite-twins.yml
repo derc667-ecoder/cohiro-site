@@ -1,0 +1,50 @@
+# THE ONLY CHECK THIS REPO HAS, AND IT GUARDS THE ONE THING A COMMENT COULD NOT.
+#
+# 404.html and join/index.html render the same invite screen. GitHub Pages serves 404.html for
+# every REAL invite URL - /join/<CODE> and /de/join/<CODE> are not files - so join/index.html is
+# the copy almost nobody sees. On 2026-08-20 a fix for 16-character codes overflowing a phone
+# screen was applied to join/index.html only, verified by fetching /join/, reported as done, and
+# never once served to a person holding an invite link. A MIRROR WARNING comment in both files was
+# the only thing keeping them in step, and a comment cannot fail.
+#
+# So: strip the comments (they are deliberately different - 404.html explains the Pages 404 trick
+# at greater length) and require the rest to be byte-identical.
+#
+# NOT COVERED, recorded rather than hidden: de/join/index.html is a third copy of this body, but
+# its head is German by design and its <body> carries lang="en" for the no-JS case, so a plain
+# diff against the twins is the wrong shape for it. Its German comes from /join.js at runtime,
+# which is a single source and cannot drift the way a copied file can.
+
+name: Invite twins
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  twins:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: 404.html and join/index.html must be identical apart from comments
+        run: |
+          set -euo pipefail
+          # Comments go, and so do the blank lines they leave behind: the two files' comment
+          # blocks are deliberately different shapes, and a guard that reddens over a blank line
+          # is one somebody switches off.
+          strip() { perl -0777 -pe 's/<!--.*?-->//gs' "$1" | sed '/^[[:space:]]*$/d'; }
+          if diff -u <(strip join/index.html) <(strip 404.html); then
+            echo "OK: the invite twins are identical apart from their comments."
+          else
+            echo
+            echo "FAIL: the invite twins have drifted."
+            echo "GitHub Pages serves 404.html for every real /join/<CODE> and /de/join/<CODE> URL,"
+            echo "so a change that lands only in join/index.html reaches nobody at all."
+            echo "Apply the change to BOTH files. The diff above is join/index.html vs 404.html."
+            exit 1
+          fi

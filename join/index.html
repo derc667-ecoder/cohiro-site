@@ -54,9 +54,13 @@
 
      STILL DUPLICATED, so it must be edited in EVERY copy: the body markup and its English
      copy, plus the head - <title>, the description, the canonical link, the Open Graph tags
-     and the breadcrumb JSON-LD. As of this change the two English files are identical apart
-     from the indexing comment above, which is deliberately longer in 404.html because that is
-     the file where the Pages 404 trick is worth explaining. -->
+     and the breadcrumb JSON-LD. The two English files are identical apart from the indexing
+     comment above, which is deliberately longer in 404.html because that is the file where
+     the Pages 404 trick is worth explaining.
+
+     THIS IS NO LONGER ENFORCED BY THIS COMMENT ALONE. .github/workflows/invite-twins.yml
+     strips the comments out of both files and fails the build on any remaining difference,
+     because a comment is exactly what failed to stop the 2026-08-20 defect. -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
  {"@type":"ListItem","position":1,"name":"Home","item":"https://cohiro.app/"},

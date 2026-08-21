@@ -22,6 +22,15 @@ It exists because four separate things need a real HTTPS page on the app's own d
 - Colours come from the app's own tokens (`app/src/theme.ts` in the `listr` repo), so the site and
   the product agree. Dark mode is handled with `prefers-color-scheme`.
 - Plain HTML, no build step. Anyone should be able to fix a typo from the GitHub web editor.
+- **`404.html` and `join/index.html` are twins and must stay identical apart from their
+  comments.** GitHub Pages serves `404.html` for every real `/join/<CODE>` and
+  `/de/join/<CODE>` URL, so a fix applied only to `join/index.html` reaches nobody - which
+  is exactly what happened on 2026-08-20. `.github/workflows/invite-twins.yml` now fails
+  the build on any drift; run the same check locally with:
+  ```bash
+  strip() { perl -0777 -pe 's/<!--.*?-->//gs' "$1" | sed '/^[[:space:]]*$/d'; }
+  diff -u <(strip join/index.html) <(strip 404.html) && echo OK
+  ```
 
 ## Related
 
