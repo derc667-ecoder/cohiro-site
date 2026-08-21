@@ -22,6 +22,25 @@ It exists because four separate things need a real HTTPS page on the app's own d
 - Colours come from the app's own tokens (`app/src/theme.ts` in the `listr` repo), so the site and
   the product agree. Dark mode is handled with `prefers-color-scheme`.
 - Plain HTML, no build step. Anyone should be able to fix a typo from the GitHub web editor.
+- **English lives at the root and German under `/de/`, and that cannot be renegotiated.** There
+  is no `/en/` prefix because `/privacy/` and `/terms/` are hardcoded in shipped App Store
+  binaries that can never be updated, in both store listings, and in the Google OAuth client
+  config - and GitHub Pages cannot issue a server-side 301. A further locale takes the same
+  shape: `/fr/`, `/es/`.
+- **Every page carries the full `hreflang` set, including a self-reference, and every page
+  carries the visible EN/DE switcher in its header.** The two must agree: the link a person
+  clicks and the alternate a crawler reads are the same url. `.github/check-hreflang.py` proves
+  it - reciprocity, self-reference, canonical agreement, every href resolving to a real file,
+  and (with `--live`) every one of them answering 200 on cohiro.app. Run it before you push:
+  ```bash
+  python3 .github/check-hreflang.py --live
+  ```
+  The three invite pages are the deliberate exception and carry **no** `hreflang` at all; the
+  reason is in their own `<head>`, and the script fails if one ever grows some.
+- **No automatic redirect on `navigator.language`, anywhere except the invite page.** An
+  auto-redirect overrides a language somebody deliberately chose and destroys the shareability
+  of the link they were sent. `/join.js` guesses, and is the documented exception, because its
+  reader is a non-user who was handed the link by somebody else - and it still never redirects.
 - **`404.html` and `join/index.html` are twins and must stay identical apart from their
   comments.** GitHub Pages serves `404.html` for every real `/join/<CODE>` and
   `/de/join/<CODE>` URL, so a fix applied only to `join/index.html` reaches nobody - which

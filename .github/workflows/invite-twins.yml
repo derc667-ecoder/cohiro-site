@@ -1,4 +1,6 @@
-# THE ONLY CHECK THIS REPO HAS, AND IT GUARDS THE ONE THING A COMMENT COULD NOT.
+# THE CHECKS THIS REPO HAS. BOTH OF THEM GUARD SOMETHING A READING CANNOT.
+#
+# JOB 1, twins: the one thing a comment could not.
 #
 # 404.html and join/index.html render the same invite screen. GitHub Pages serves 404.html for
 # every REAL invite URL - /join/<CODE> and /de/join/<CODE> are not files - so join/index.html is
@@ -15,13 +17,35 @@
 # diff against the twins is the wrong shape for it. Its German comes from /join.js at runtime,
 # which is a single source and cannot drift the way a copied file can.
 
-name: Invite twins
+# THE FILE IS STILL CALLED invite-twins.yml, which is now a name for half of it. Renaming a
+# workflow file throws away its run history, and the history of the twins check is the record
+# of the defect it exists for. The workflow's NAME says what it covers; the filename is an
+# address.
+#
+# JOB 2, hreflang: the one thing a HUMAN could not. A wrong language alternate shows nobody
+# anything - no broken page, no 404, no visible symptom at all - and the way you find out is
+# that the German half of the site quietly never ranks. .github/check-hreflang.py is the
+# reading, and its own docstring is the argument. Added 2026-08-21 with the EN/DE switcher,
+# so that the next locale cannot be wired up wrongly in silence.
+#
+# WHY IT IS NOT THE SAME COMMAND ON EVERY EVENT. On a pull request the live site is still the
+# PREVIOUS deploy, so a PR that adds a locale would be curling urls that cannot exist yet and
+# would go red for doing the right thing - and a check that is red for correct work is one
+# somebody switches off. So a PR gets the structural half, which is complete and
+# deterministic on the files in front of it, and the far side is read after the merge, where
+# it can be true. --wait-for-deploy is there because the Pages build races this workflow.
+
+name: Site checks
 
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    # Once a week: the live half of the hreflang job is the only thing here that
+    # can start failing without anybody pushing anything.
+    - cron: '17 6 * * 1'
 
 permissions:
   contents: read
@@ -47,4 +71,20 @@ jobs:
             echo "so a change that lands only in join/index.html reaches nobody at all."
             echo "Apply the change to BOTH files. The diff above is join/index.html vs 404.html."
             exit 1
+          fi
+
+  hreflang:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Every alternate set must be reciprocal, self-referencing, and live
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "Pull request: structural checks only."
+            echo "The live site is still the previous deploy, so a page this PR adds cannot"
+            echo "answer 200 yet. The far side is read on the push to main that follows."
+            python3 .github/check-hreflang.py
+          else
+            python3 .github/check-hreflang.py --live --wait-for-deploy
           fi
