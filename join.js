@@ -136,7 +136,8 @@ var de = {
   //   - the character class is the one the path form has always used, [A-Za-z0-9], and nothing
   //     else is ever allowed through;
   //   - it is anchored at BOTH ends, because an unanchored test passes any string that merely
-  //     CONTAINS something code-shaped;
+  //     CONTAINS something code-shaped - which is what the query half needs and, see below, is
+  //     exactly what the path half must NOT be given;
   //   - the length is bounded, and THE NUMBER IS THE APP'S, not one invented here. The app's own
   //     parser (lib/parseJoinUrl.ts in the listr repo) caps a code at 64 characters, four times
   //     the 16 a real one has. Two halves of one feature, in two repos, each defining "a code"
@@ -150,12 +151,25 @@ var de = {
     return typeof v === 'string' && /^[A-Za-z0-9]{1,64}$/.test(v) ? v.toUpperCase() : '';
   }
 
-  // The path segment is taken WHOLE and then put through the gate, rather than letting the
-  // character class pick a prefix out of it: the old /join/([A-Za-z0-9]+) read /join/AB12CD-junk
-  // as "AB12CD" and would have displayed a code the URL does not contain. Not decoded, on purpose.
-  // location.pathname is still percent-encoded, so an encoded payload keeps its % signs and the
-  // gate refuses it without a decoder ever having run.
-  var seg = location.pathname.match(/\/join\/([^/]*)/);
+  // THE TWO HALVES REACH THAT GATE DIFFERENTLY, AND THE ASYMMETRY IS THE POINT. The query half is
+  // new, so it can be exact: what URLSearchParams hands back is put through the gate whole, and a
+  // near-miss is refused rather than trimmed into shape. The path half is GRANDFATHERED and must
+  // not narrow, so the pattern below is byte-identical to the one that shipped - an alnum run
+  // after a `join/` segment, tolerating whatever follows it.
+  //
+  // THAT TOLERANCE IS NOT SLOPPINESS, IT IS THE CASE THAT ACTUALLY HAPPENS. A sender ends the
+  // sentence containing their link, or a chat app linkifies one character too many, and what gets
+  // opened is /join/<CODE>. or /join/<CODE>) - which has always worked and has to keep working.
+  // Taking the segment whole and demanding it be exactly a code looks stricter and is simply
+  // wrong here: it retires every punctuated link in every message history at once, and worse, the
+  // app would still JOIN on that URL (lib/parseJoinUrl.ts keeps the same tolerance, deliberately
+  // and for this reason) while this page told the reader there was no code. Verified as a real
+  // regression before it shipped, not reasoned about afterwards.
+  //
+  // Not decoded, on purpose: location.pathname is still percent-encoded, so an encoded payload
+  // keeps its % signs, fails the class, and no decoder ever runs. The captured run is alnum by
+  // construction, so the gate is only enforcing the length cap on this half.
+  var seg = location.pathname.match(/\/join\/([A-Za-z0-9]+)/);
   var code = seg ? clean(seg[1]) : '';
 
   // Guarded for its own sake: a browser without URLSearchParams still gets the path form, and the
