@@ -57,6 +57,28 @@ It exists because four separate things need a real HTTPS page on the app's own d
   auto-redirect overrides a language somebody deliberately chose and destroys the shareability
   of the link they were sent. `/join.js` guesses, and is the documented exception, because its
   reader is a non-user who was handed the link by somebody else - and it still never redirects.
+- **No copy may say that the members of a household live together.** A CoHiro household does
+  not require cohabiting: a couple in two flats, family in different cities, or friends sharing
+  one list are all households in this app. So "the people you live with" / "alle, die
+  zusammenwohnen" is not a question of tone, it is a false claim about the product - it narrows
+  a marketing page to a fraction of the people the app is for, and in the privacy policy it
+  names a SMALLER set of readers than the set that can actually read your notes, which is the
+  one place a privacy policy must not be generous with itself. Name who shares the list
+  instead: **the other members of your household** / **die anderen Mitglieder deines
+  Haushalts**, or "wherever they live" / "egal wo sie wohnen" when the point is that it does
+  not matter. On the invite pages the reader is **not a member yet**, so make no claim about
+  the sender at all - not "someone you live with", and not "someone from your household"
+  either. Both of those have shipped, the second one as the fix for the first.
+  `.github/check-copy-claims.py` is why this is a rule and not an opinion:
+  ```bash
+  python3 .github/check-copy-claims.py
+  ```
+  It reads every `.html` and `.js` file **including the html comments**, because a comment
+  that teaches the mistake re-teaches it to the next person - which is exactly what
+  `index.html`'s og comment was doing. That is also why the banned phrases are spelled out
+  here in `README.md` and nowhere else: this file is the one the check does not read. There is
+  deliberately no allowlist; if a sentence needs to say the app does NOT require it, say that
+  positively rather than by negating the phrase.
 - **`404.html` and `join/index.html` are twins and must stay identical apart from their
   comments.** GitHub Pages serves `404.html` for every real `/join/<CODE>` and
   `/de/join/<CODE>` URL, so a fix applied only to `join/index.html` reaches nobody - which

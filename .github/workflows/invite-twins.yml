@@ -1,4 +1,4 @@
-# THE CHECKS THIS REPO HAS. BOTH OF THEM GUARD SOMETHING A READING CANNOT.
+# THE CHECKS THIS REPO HAS. ALL THREE GUARD SOMETHING A READING CANNOT.
 #
 # JOB 1, twins: the one thing a comment could not.
 #
@@ -27,6 +27,14 @@
 # that the German half of the site quietly never ranks. .github/check-hreflang.py is the
 # reading, and its own docstring is the argument. Added 2026-08-21 with the EN/DE switcher,
 # so that the next locale cannot be wired up wrongly in silence.
+#
+# JOB 3, copy-claims: the one a reading keeps getting WRONG. "CoHiro is for the people you
+# live with" is simply what English reaches for when it means "household", and it is false:
+# a household here can be a couple in two flats or family in two cities. It was written three
+# times by three people who all agreed with the rule, and once it came back as the FIX for
+# itself - 45f2d85 replaced a wrong phrase with a differently wrong one. That is the shape of
+# defect a review comment cannot hold and a build can. .github/check-copy-claims.py is the
+# reading; its docstring is the argument, and README.md carries the rule for humans.
 #
 # WHY IT IS NOT THE SAME COMMAND ON EVERY EVENT. On a pull request the live site is still the
 # PREVIOUS deploy, so a PR that adds a locale would be curling urls that cannot exist yet and
@@ -88,3 +96,10 @@ jobs:
           else
             python3 .github/check-hreflang.py --live --wait-for-deploy
           fi
+
+  copy-claims:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: No page may claim that the members of a household live together
+        run: python3 .github/check-copy-claims.py
