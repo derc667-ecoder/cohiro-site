@@ -125,6 +125,33 @@ th, td {
 }
 th { color: var(--muted); font-weight: 600; }
 
+/* GERMAN COMPOUNDS ARE LONGER THAN A PHONE COLUMN, so the German privacy page's processor table
+   measured 347px of content inside a 335px box at a 375px viewport: a 12px sideways scroll inside
+   the table, with "Benachrichtigungen" setting the middle column's min-content width. The PAGE
+   never overflowed - the `display: block; overflow-x: auto` above already contains it, and
+   document.documentElement.scrollWidth was 375 of 375 throughout - so this is a readability fix,
+   not a layout escape.
+
+   WHY NOT `overflow-wrap: anywhere`, which was the obvious one-liner: it does clear the number
+   (347 -> 335, measured), and it looks awful, which is only visible by looking. Because it lowers
+   min-content for EVERY cell, the auto table layout re-narrows the outer columns and the browser
+   then breaks mid-word wherever it likes: "Supabase" came out as "aba/se", "Sentry" as "Sen/try",
+   "Expo, Apple, Google" as "Exp/o, Ap/ple, Go/ogl/e". Trading a 12px scroll for that is a bad
+   trade.
+
+   `hyphens: auto` buys the same 347 -> 335 with the browser's German hyphenation dictionary, so
+   the breaks are real ones with a visible hyphen: "Benach-richtigungen", "Ge-rätemodell",
+   "Registrie-rungs-", "amerika-nisch", and every short word stays whole.
+
+   Scoped to html[lang="de"] so it is a no-op for English BY CONSTRUCTION rather than by
+   coincidence: English is where the short words are, and the English privacy table already fits
+   (335 of 335, measured before and after). The -webkit- prefix is for Safari before 17. */
+html[lang="de"] th,
+html[lang="de"] td {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
 footer.site {
   margin-top: 3rem;
   padding-top: 1.5rem;
