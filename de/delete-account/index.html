@@ -35,8 +35,11 @@
 </header>
 <main id="main">
 <nav class="small muted" aria-label="Brotkrumennavigation" style="margin:0 0 1rem">
-  <!-- TODO(de-home): repoint to /de/ once it exists, here AND in the breadcrumb JSON-LD
-       above, whose position-1 item is the English home under a German name. -->
+  <!-- TODO(de-home): /de/ EXISTS as of 2026-08-21. This crumb and the breadcrumb JSON-LD
+       above still point Startseite at the ENGLISH home, so a German label now sits on a link
+       that leaves German. Repointing both is deliberately held for the EN/DE switcher change,
+       which touches all fifteen pages at once; repointing this page alone would leave the site
+       half-repointed, which is harder to finish than not starting. -->
   <a href="/">Startseite</a> &rsaquo; <span aria-current="page">Konto löschen</span>
 </nav>
   <h1>Dein Konto löschen</h1>
