@@ -38,7 +38,7 @@ var de = {
   home: 'Startseite',
   crumb: 'Haushalt beitreten',
   h1: 'Du wurdest eingeladen',
-  lede: 'Jemand, mit dem du zusammenwohnst, möchte bei CoHiro eine Einkaufsliste und einen Vorrat mit dir teilen.',
+  lede: 'Jemand möchte bei CoHiro eine Einkaufsliste und einen Vorrat mit dir teilen.',
   codeLabel: 'Dein Einladungscode',
   noCode: 'sieh in deiner Nachricht nach',
   hint: 'Wenn du CoHiro schon hast, öffnet dieser Link die App direkt zum Beitreten.',
