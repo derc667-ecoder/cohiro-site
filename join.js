@@ -1,21 +1,23 @@
 // Shared by BOTH invite twins: join/index.html and 404.html. GitHub Pages serves 404.html for
-// every real /join/<CODE> URL, because that path is not a file - so this one script is what runs
-// on the page visitors actually open. It used to be an inline <script> copied into both files,
-// which is how a fix once landed on only one of them.
+// every /join/<CODE> URL, because that path is not a file; the newer /join/?c=<CODE> form is
+// join/index.html itself, a real file. So this one script is what runs on the page visitors
+// actually open, whichever of the two shapes the link they were sent happens to be. It used to be
+// an inline <script> copied into both files, which is how a fix once landed on only one of them.
 //
-// Lift the code out of the path (/join/AB12CD) and show it, so the visitor can type it even
-// though the app is not installed. One same-origin static file and dependency-free: this site
-// makes no third-party requests, and a page whose whole job is to be readable must not need a
-// bundle to work.
+// Lift the code out of the URL - /join/?c=AB12CD, or the older /join/AB12CD - and show it, so the
+// visitor can type it even though the app is not installed. One same-origin static file and
+// dependency-free: this site makes no third-party requests, and a page whose whole job is to be
+// readable must not need a bundle to work.
 //
 // The code is displayed only. It is never sent anywhere from this page, and GitHub Pages is
 // static, so there is nothing here that could log it.
 
-// THE GERMAN INVITE PAGE CANNOT BE A GERMAN HTML FILE, so it is this object instead.
-// GitHub Pages has exactly one 404.html, at the site root. /join/<CODE> is not a file, and
-// neither is /de/join/<CODE>, so BOTH of them serve that same English file. A de/join/index.html
-// can only ever answer the bare /de/join/ path, which is the one path nobody is ever sent. The
-// only place a German invite page can exist is here, at runtime, on whichever file got served.
+// THE GERMAN INVITE PAGE CANNOT BE A GERMAN HTML FILE ALONE, so it is this object as well.
+// GitHub Pages has exactly one 404.html, at the site root. /de/join/<CODE> is not a file, so the
+// OLD path form serves that same English root file, and only a runtime swap can make it German.
+// The newer /de/join/?c=<CODE> form does land on de/join/index.html - but that file deliberately
+// ships the twins' English markup under a German head (see its own header comment), so the German
+// still arrives from here. One catalog, one place, on whichever file got served.
 //
 // Wording is the app's own German catalog (app/src/locales/de in the listr repo), so the site and
 // the product cannot disagree about what things are called: Haushalt, Einkaufsliste, Vorrat
@@ -100,9 +102,79 @@ var de = {
     });
   }
 
-  var m = location.pathname.match(/\/join\/([A-Za-z0-9]+)/);
-  if (!m) return;
-  var code = m[1].toUpperCase();
+  // WHERE THE CODE COMES FROM, AND WHY THERE ARE NOW TWO PLACES.
+  //
+  // The original form is the path, /join/<CODE>. That path is not a file, so GitHub Pages answers
+  // HTTP 404 and serves 404.html. It works for a person and is invisible to every link previewer
+  // there is: facebookexternalhit (WhatsApp, Messenger), iMessage, Slack and Twitterbot all refuse
+  // to render a card for a non-200 response. So every invite CoHiro has ever sent went out as a
+  // bare, unadorned link, however correct the eight og: tags on the page are. Confirmed by the
+  // owner on 2026-08-21, pasting a real invite into WhatsApp: no card at all.
+  //
+  // The new form puts the code in the query instead - /join/?c=<CODE> - which IS join/index.html:
+  // a real file, a real 200, and therefore a real preview card. /de/join/?c=<CODE> likewise, and
+  // that one is the bigger win, because it serves de/join/index.html's German og: tags rather
+  // than the English ones on the root 404.
+  //
+  // BOTH ARE READ, AND THE PATH FORM HAS TO KEEP WORKING FOREVER. Links already sent live in other
+  // people's message history indefinitely, and nothing changed here can reach them.
+  //
+  // WHEN BOTH ARE PRESENT, THE PATH WINS. Neither one can inject anything, because both go through
+  // the same gate below - so this is not a safety choice, it is a truthfulness one. A query string
+  // is the easy thing to append unnoticed to the tail of somebody else's link; if ?c= could
+  // override /join/<CODE>, then a forwarded invite could be made to DISPLAY a code its own URL
+  // does not contain. The more structural half of the URL wins. In practice the two never
+  // collide - the new form's path carries no code at all - so this rule only ever decides a URL
+  // somebody hand-built.
+
+  // ONE GATE, BOTH SOURCES, AND IT REJECTS RATHER THAN REPAIRS.
+  //
+  // The code is displayed and never sent anywhere, so the failure mode is showing something that
+  // is not a code - and the query string is now the most attacker-controllable input this site
+  // has. URLSearchParams DECODES, it does not sanitise: ?c=%3Cimg%20src=x%20onerror=alert(1)%3E
+  // hands back a live-looking <img src=x onerror=alert(1)> string with a straight face. So:
+  //   - the character class is the one the path form has always used, [A-Za-z0-9], and nothing
+  //     else is ever allowed through;
+  //   - it is anchored at BOTH ends, because an unanchored test passes any string that merely
+  //     CONTAINS something code-shaped;
+  //   - the length is bounded, and THE NUMBER IS THE APP'S, not one invented here. The app's own
+  //     parser (lib/parseJoinUrl.ts in the listr repo) caps a code at 64 characters, four times
+  //     the 16 a real one has. Two halves of one feature, in two repos, each defining "a code"
+  //     slightly differently is how a link starts working on one side and not the other, so this
+  //     side quotes that side instead of picking its own bound;
+  //   - and a value that fails is refused WHOLE. Nothing is trimmed, truncated or escaped into
+  //     shape, because a half-salvaged code is a wrong code displayed with confidence.
+  // What comes out then reaches the page through textContent and nothing else: never innerHTML,
+  // never an attribute, never an href. document.title is a plain string property, not markup.
+  function clean(v) {
+    return typeof v === 'string' && /^[A-Za-z0-9]{1,64}$/.test(v) ? v.toUpperCase() : '';
+  }
+
+  // The path segment is taken WHOLE and then put through the gate, rather than letting the
+  // character class pick a prefix out of it: the old /join/([A-Za-z0-9]+) read /join/AB12CD-junk
+  // as "AB12CD" and would have displayed a code the URL does not contain. Not decoded, on purpose.
+  // location.pathname is still percent-encoded, so an encoded payload keeps its % signs and the
+  // gate refuses it without a decoder ever having run.
+  var seg = location.pathname.match(/\/join\/([^/]*)/);
+  var code = seg ? clean(seg[1]) : '';
+
+  // Guarded for its own sake: a browser without URLSearchParams still gets the path form, and the
+  // query form falls back to the page's own "check your message" rather than throwing.
+  if (!code && typeof URLSearchParams === 'function') {
+    // EXACTLY ONE c=, OR NONE OF THEM - deliberately not .get(), which would silently hand back
+    // the first of several. ?c=abc&c=def is a URL nobody can reason about, and quietly picking one
+    // half of it is how a reader is shown a code their sender never wrote. The app refuses that
+    // URL outright (same file as above), and a page that confidently displayed "ABC" for a link
+    // the app then declines to open would be worse than one that says "check your message".
+    var all = new URLSearchParams(location.search).getAll('c');
+    code = all.length === 1 ? clean(all[0]) : '';
+  }
+
+  // No code, or a value that failed the gate: leave the page exactly as it was served. That is
+  // already the right answer in both languages - "check your message", or the German catalog's
+  // "sieh in deiner Nachricht nach", which the block above has put there by now.
+  if (!code) return;
+
   var el = document.getElementById('code');
   // Guarded because this stopped being an inline script welded to its own markup: any page that
   // loads /join.js without a #code element would otherwise throw here and take the rest down.
