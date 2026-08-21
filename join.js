@@ -34,6 +34,7 @@
 var de = {
   skip: 'Zum Inhalt springen',
   crumbNav: 'Brotkrumennavigation',
+  langNav: 'Sprache',
   home: 'Startseite',
   crumb: 'Haushalt beitreten',
   h1: 'Du wurdest eingeladen',
@@ -75,9 +76,20 @@ var de = {
 // with German further down into German, against the preference they actually stated first. The
 // top entry is the answer to "which language does this person want"; the rest of the list is the
 // answer to "which can they read", and that is a different question.
+//
+// AND ONE THING NOW BEATS THE BROWSER GUESS: ?lang=en. The moment this page grew a visible
+// switcher, the guess acquired a way to be WRONG IN PUBLIC. A German-browser reader opening
+// /join/?c=<CODE> is shown German by the rule above, so the switcher offers them English - and
+// without a marker that English link would point at the url they are already on, reload, guess
+// German again, and read to them as a broken control. The marker is written by the switcher
+// itself, never by a sender, so it never appears in a link anybody shares; it is matched
+// literally against the raw query, never decoded, and it is used as a boolean that decides
+// between two hard-coded branches, so it cannot reach the DOM. A /de/ path still wins over it
+// outright - the German half of the switcher therefore needs no marker at all.
 (function () {
   var pref = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-  var german = location.pathname.indexOf('/de/') === 0 || /^de/i.test(pref);
+  var forcedEn = /(^|&)lang=en(&|$)/.test(location.search.slice(1));
+  var german = location.pathname.indexOf('/de/') === 0 || (!forcedEn && /^de/i.test(pref));
 
   if (german) {
     document.documentElement.lang = 'de';
@@ -100,6 +112,57 @@ var de = {
       if (n.dataset.deHref) n.setAttribute('href', n.dataset.deHref);
       if (n.dataset.deLabel) n.setAttribute('aria-label', de[n.dataset.deLabel]);
     });
+  }
+
+  // THE EN/DE SWITCHER, AND THE ONE THING IT MUST NEVER DO: DROP THE INVITE CODE.
+  //
+  // Every other page on this site can hard-code its counterpart's url in the markup, because
+  // every other page's url is the same for everybody. THIS page's url carries a one-off code
+  // that belongs to the reader - /join/?c=<CODE>, or the older /join/<CODE> - and a switcher
+  // that navigated to a bare /de/join/ would throw it away, leaving a person holding an invite
+  // on a page that tells them to check their message. That is the worst outcome available here,
+  // and it is one click away in the naive version, so the hrefs are built from the url in the
+  // bar rather than written down: swap the /de prefix, keep the path, keep the query.
+  //
+  // WHICH SIDE IS THE CURRENT-LANGUAGE MARKER FOLLOWS WHAT IS ON THE SCREEN, not what the url
+  // looks like. On /join/?c=X with a German browser the page above has just rendered German, so
+  // "Deutsch" is the marker and "English" is the link, even though the path is the English one.
+  // A switcher that claimed English was current while the reader looked at German would be
+  // describing a different page than the one they are on.
+  //
+  // The order stays English-first in both languages, so the control does not move under the
+  // finger of somebody switching back and forth to compare.
+  //
+  // Built with createElement and text nodes, like everything else here: this page renders no
+  // markup it did not ship with.
+  var nav = document.getElementById('langs');
+  if (nav) {
+    // Our own marker is stripped before either href is built, so it cannot accumulate on
+    // repeated switches and cannot travel to the German side, where the path decides anyway.
+    var q = location.search.replace(/^\?/, '').split('&').filter(function (part) {
+      return part && part !== 'lang=en';
+    }).join('&');
+    q = q ? '?' + q : '';
+
+    var enPath = location.pathname.indexOf('/de/') === 0
+      ? location.pathname.slice(3)   // /de/join/AB12 -> /join/AB12, and /de/ -> /
+      : location.pathname;
+    var deLink = nav.querySelector('a[hreflang="de"]');
+    if (deLink) deLink.setAttribute('href', '/de' + enPath + q);
+
+    if (german) {
+      var enLink = document.createElement('a');
+      enLink.setAttribute('href', enPath + (q ? q + '&' : '?') + 'lang=en');
+      enLink.setAttribute('hreflang', 'en');
+      enLink.setAttribute('lang', 'en');
+      enLink.appendChild(document.createTextNode('English'));
+      var deNow = document.createElement('span');
+      deNow.setAttribute('aria-current', 'true');
+      deNow.appendChild(document.createTextNode('Deutsch'));
+      var wasCurrent = nav.querySelector('[aria-current]');
+      if (wasCurrent) nav.replaceChild(enLink, wasCurrent);
+      if (deLink) nav.replaceChild(deNow, deLink);
+    }
   }
 
   // WHERE THE CODE COMES FROM, AND WHY THERE ARE NOW TWO PLACES.

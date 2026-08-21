@@ -126,6 +126,18 @@
 <div class="wrap">
 <header class="site">
   <a class="wordmark" href="/"><span class="co">Co</span>Hiro<span class="dot">.</span></a>
+  <!-- THE SWITCHER IS REWRITTEN AT RUNTIME ON THIS PAGE, AND ONLY ON THIS PAGE. A static
+       href="/de/join/" would drop the invite code, which is the single most destructive thing
+       that could happen here. /join.js carries location.search across, swaps which side is the
+       current-language marker when the German catalog goes in, and appends ?lang=en to the
+       English side so that an explicit click beats the browser-language guess below it. The
+       markup here is what a reader with JavaScript off gets, and on those readers this page
+       cannot show an invite code either. See the switcher block in /join.js. -->
+  <nav class="langs" id="langs" aria-label="Language" data-de-label="langNav">
+    <span aria-current="true">English</span>
+    <span aria-hidden="true">&middot;</span>
+    <a href="/de/join/" hreflang="de" lang="de">Deutsch</a>
+  </nav>
 </header>
 <main id="main">
 <!-- TODO(de-home): /de/ EXISTS as of 2026-08-21, but the German rendering still points

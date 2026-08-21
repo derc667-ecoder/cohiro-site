@@ -50,7 +50,61 @@ body {
   padding: 2.5rem 1.25rem 4rem;
 }
 
-header.site { padding-bottom: 1.5rem; }
+/* --- The site header, and the EN/DE switcher that lives in it -----------------------------
+   The header used to be one line, because it held one thing. It now holds the wordmark and the
+   language switcher, so it is a flex row: the wordmark stays exactly where it always was at
+   flex-start, and space-between puts the switcher against the right edge without moving it.
+   flex-wrap is the 375px insurance - at the largest text settings the switcher drops onto its
+   own line UNDER the wordmark rather than squeezing it. */
+header.site {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding-bottom: 1.5rem;
+}
+
+/* CHROME, NOT A FEATURE: small, muted, and on the wordmark's baseline. Two rules carry the
+   whole design.
+
+   THE CURRENT LANGUAGE IS TEXT AND THE OTHER ONE IS A LINK, so the only coloured thing in the
+   header is the only thing worth clicking. It is not a disabled link and not a link to itself:
+   there is nowhere for it to go, and aria-current="true" is what tells a screen reader which
+   of the two you are on.
+
+   THE LABELS ARE ENDONYMS - "Deutsch", never "German", never "DE", and never a flag (a flag is
+   a country, and Deutsch is not spoken in one country). The endonym is the word a reader who
+   needs it can recognise WITHOUT already reading the language the page is in, which is the
+   whole job. It being the visible text as well as the accessible name is the other half: an
+   aria-label of "Deutsch" over a visible "DE" would fail WCAG 2.5.3 Label in Name, and this
+   project has already had one screen reader announcing a different noun than the screen showed.
+
+   The anchor carries lang so the label is SPOKEN in its own language, and hreflang so the
+   relationship is machine-readable at the link as well as in the head.
+
+   COLOURS ARE THE EXISTING TOKENS, which is why there is no dark-mode rule for any of this:
+   the prefers-color-scheme block at the bottom of this file redefines --muted and --action, so
+   the switcher moves with everything else by construction rather than by a second copy. */
+.langs {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+/* 0.85rem x 1.65 is a hair under the 24px WCAG 2.5.8 minimum target, so the padding buys the
+   few pixels back. It is vertical only: nothing shifts sideways. */
+.langs a,
+.langs [aria-current] {
+  display: inline-block;
+  padding: 0.2rem 0;
+  text-decoration: none;
+}
+.langs a { color: var(--action); }
+.langs a:hover { text-decoration: underline; }
+.langs [aria-current] { color: var(--muted); }
 
 .wordmark {
   font-size: 1.5rem;
