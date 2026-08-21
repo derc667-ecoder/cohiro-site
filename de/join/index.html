@@ -8,24 +8,39 @@
 <link rel="canonical" href="https://cohiro.app/de/join/">
 
 <!-- Deliberately NOT indexed, for the twins' reason: a real visit carries a one-off invite
-     code in the path, and a search result for someone else's invite is useless at best.
+     code, in the path (/de/join/<CODE>) or in the query (/de/join/?c=<CODE>), and a search
+     result for someone else's invite is useless at best.
 
-     THIS FILE IS THIN ON PURPOSE, AND IT IS NOT WHERE THE GERMAN LIVES. GitHub Pages has
-     exactly one 404.html, at the site ROOT, so /de/join/<CODE> - every German invite link
-     anybody will ever click - is served that root English file, never this one. This file can
-     only ever answer the bare /de/join/ path. Its job is to make that path a real German URL
-     (lang, title, description, canonical, og:locale) and nothing more.
+     THIS FILE IS THIN, AND THE REASON GIVEN HERE USED TO BE WRONG. It said this file "can only
+     ever answer the bare /de/join/ path", and that this was "the one path nobody is ever sent".
+     The ?c= form falsified the first half: /de/join/?c=<CODE> IS the bare /de/join/ path, with
+     the code in the query, so GitHub Pages serves THIS file - a real 200, carrying the German
+     og: tags above rather than the English ones on the root 404. That is the bigger of the two
+     wins the query form was built for, and it is why this head is worth more than it looks.
 
-     The body below is the twins' English markup with the same data-i18n hooks, and /join.js
-     renders it in German because this path starts with /de/. That is what keeps the German
-     copy in ONE place - join.js's `de` object - rather than in a third file free to drift
-     from the page real invites actually get. THE COST, recorded rather than hidden: with
-     JavaScript disabled this page declares lang="de" in the head and shows an English body.
-     That is why <body> carries lang="en": a screen reader is then told the truth about the
-     words actually on the page, and join.js sets it to "de" at the moment the German lands.
-     Do not delete that attribute - without it a German voice reads English sentences. The
-     trade buys a single source for the German on a path no invite link reaches, and the page
-     invite links DO reach cannot be a German file under any design.
+     WHAT IS STILL TRUE, AND IS THE REASON THE GERMAN IS A RUNTIME SWAP: /de/join/<CODE>, the
+     original shape, is not a file, and GitHub Pages has exactly one 404.html, at the site
+     ROOT. That shape is therefore served the root ENGLISH file and can never be served this
+     one. So the body below is the twins' English markup with the same data-i18n hooks, and
+     /join.js renders it in German because this path starts with /de/: one catalog, on
+     whichever file got served, instead of a third copy of the German free to drift.
+
+     AND WHAT IS NOT TRUE YET, recorded rather than assumed, because it cannot be seen from
+     inside this repo: NOTHING EMITS THE ?c= SHAPE. buildInviteLink in app/src/lib/household.ts
+     still returns https://cohiro.app/de/join/<CODE> for a German sharer, and
+     app/src/__tests__/inviteLinkHttps.test.ts pins it there. So as things stand every German
+     invite still lands on the root English 404.html, this file still answers only a bare path
+     nobody is sent, and the German preview card reaches nobody. Read the paragraphs above as
+     what this file is FOR the day the app's link builder moves, not as live traffic.
+
+     THE COST, recorded rather than hidden, AND IT GROWS ON THAT SAME DAY: with JavaScript
+     disabled this page declares lang="de" in the head and shows an English body. It is why
+     <body> carries lang="en" - a screen reader is then told the truth about the words actually
+     on the page, and join.js sets it to "de" at the moment the German lands. Do not delete
+     that attribute: without it a German voice reads English sentences. Today nobody pays that
+     cost, because no link reaches this file. Every new-shape German invite will. If it is ever
+     worth closing, the fix is German markup here plus something that keeps it in step with
+     join.js, never the removal of that attribute.
 
      DO NOT ADD de/404.html. GitHub Pages ignores it - one 404 per site, at the root. -->
 <meta name="robots" content="noindex, follow">

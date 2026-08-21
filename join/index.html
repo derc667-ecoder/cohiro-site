@@ -7,8 +7,9 @@
 <meta name="description" content="Someone you live with wants to share a shopping list and household inventory with you on CoHiro.">
 <link rel="canonical" href="https://cohiro.app/join/">
 
-<!-- Deliberately NOT indexed. Every real visit here carries a one-off invite code in the
-     path, and a search result for someone else's invite is useless at best. -->
+<!-- Deliberately NOT indexed. Every real visit here carries a one-off invite code - in the
+     path (/join/<CODE>), or in the query (/join/?c=<CODE>, whose bare path IS this very
+     file) - and a search result for someone else's invite is useless at best. -->
 <meta name="robots" content="noindex, follow">
 
 <meta property="og:type" content="website">
@@ -29,24 +30,47 @@
 <script src="/join.js" defer></script>
 
 <!-- MIRROR WARNING: this page and its twin (join/index.html <-> 404.html) render the same
-     invite screen, and GitHub Pages serves 404.html for every REAL invite URL, because
-     /join/<CODE> is not a file. So the page a visitor actually opens is 404.html, and
-     join/index.html is the one almost nobody sees. Edit BOTH, or the fix reaches nobody -
-     that is exactly how the 2026-08-20 overflow fix (16-character codes running off a phone
-     screen) was applied to join/index.html, verified by fetching /join/, reported as done, and
-     never once served to a person holding a real invite link.
+     invite screen, and WHICH ONE A VISITOR OPENS DEPENDS ON THE SHAPE OF THEIR LINK. Two
+     shapes exist and both must keep working:
+       - /join/<CODE>     is not a file, so Pages answers 404 and serves 404.html. This is what
+         the app emits today (buildInviteLink, app/src/lib/household.ts), so it is the shape of
+         every invite anybody has actually been sent, and it lives in other people's message
+         history indefinitely: nothing shipped from this repo can ever retire it.
+       - /join/?c=<CODE>  has the bare path /join/, which IS join/index.html: a real file, a
+         real 200, and therefore a real link-preview card. This site reads it, the app's parser
+         reads it, and the AASA claims it.
+     EDIT BOTH FILES, WHICHEVER WAY THE TRAFFIC HAPPENS TO RUN. Until 2026-08-21 this comment
+     said flatly that Pages serves 404.html for every real invite URL, so join/index.html was
+     "the one almost nobody sees" - a true observation that the ?c= form turned into a claim
+     with a shelf life, and one that inverts the day the app's link builder moves. The
+     2026-08-20 overflow fix (16-character codes running off a phone screen) was applied to
+     join/index.html, verified by fetching /join/, reported as done, and never once served to a
+     person holding a real invite link. A mirror rule that depends on which twin is currently
+     popular is a rule that breaks quietly.
 
-     THE SAME RULE IS WHY THERE IS NO GERMAN INVITE PAGE. Pages has exactly one 404.html, so
-     /de/join/<CODE> is served THIS file too. The German therefore cannot be a file; it is a
-     runtime swap, and every user-facing string below carries a data-i18n hook that /join.js
-     looks up in its `de` object (with data-de-href beside it where a link has a German target,
-     and data-de-label where the string is one a screen reader speaks). The only two strings
-     without a hook are the wordmark and "Impressum", which read the same in both languages.
-     A hook was missing from the footer's Support link until 2026-08-21, and the sentence you
-     are reading claimed otherwise the whole time. KEEP THE HOOKS: a
-     string that loses its hook stays English for every German reader, and nothing about the
-     page will look wrong in English while it happens. There is a third file with this same
-     body, de/join/index.html, localised by the same script.
+     THE ?c= FORM IS HALF LANDED, and that is invisible from inside this repo, so it is written
+     down here. Its entire purpose is the preview card: facebookexternalhit (WhatsApp,
+     Messenger), iMessage, Slack and Twitterbot all refuse to render a card for a non-200, so a
+     path-form invite always shares as a bare unadorned URL - confirmed by the owner on
+     2026-08-21 by pasting a real invite into WhatsApp. The SITE side is done: these twins,
+     de/join/index.html, /join.js, and /.well-known/apple-app-site-association. The APP side
+     that would EMIT the new shape is not: buildInviteLink still returns
+     https://cohiro.app/join/<CODE>, and app/src/__tests__/inviteLinkHttps.test.ts pins it
+     there. Until that changes, no invite anywhere has the new shape and no invite gets a card.
+
+     THE GERMAN CANNOT LIVE IN A GERMAN FILE ALONE, and the ?c= form only narrowed that rather
+     than ending it. /de/join/?c=<CODE> does land on a German file, de/join/index.html, which
+     is where a German preview card would come from. But /de/join/<CODE>, which is the shape a
+     German sharer's app builds today, is not a file, and Pages has exactly one 404.html at the
+     site ROOT - so it is served THIS English file. That is why every user-facing string below
+     carries a data-i18n hook that /join.js looks up in its `de` object (with data-de-href
+     beside it where a link has a German target, and data-de-label where the string is one a
+     screen reader speaks). The only two strings without a hook are the wordmark and
+     "Impressum", which read the same in both languages. A hook was missing from the footer's
+     Support link until 2026-08-21, and the sentence you are reading claimed otherwise the
+     whole time. KEEP THE HOOKS: a string that loses its hook stays English for every German
+     reader, and nothing about the page will look wrong in English while it happens. There is a
+     third file with this same body, de/join/index.html, localised by the same script.
 
      NOW SHARED, so one edit lands on every copy:
        - the CSS for .code and .steps, in /style.css under "Invite pages"
@@ -60,7 +84,10 @@
 
      THIS IS NO LONGER ENFORCED BY THIS COMMENT ALONE. .github/workflows/invite-twins.yml
      strips the comments out of both files and fails the build on any remaining difference,
-     because a comment is exactly what failed to stop the 2026-08-20 defect. -->
+     because a comment is exactly what failed to stop the 2026-08-20 defect. AND NOTE THE ONE
+     THING THAT GUARD CANNOT SEE: it strips comments BEFORE diffing, so a comment-only edit to
+     one twin passes green while leaving the two out of step. This block is a comment. Change
+     it in both by hand, and check it by hand. -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
  {"@type":"ListItem","position":1,"name":"Home","item":"https://cohiro.app/"},
