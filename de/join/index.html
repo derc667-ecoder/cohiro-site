@@ -1,24 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>You have been invited to a household on CoHiro</title>
-<meta name="description" content="Someone you live with wants to share a shopping list and household inventory with you on CoHiro.">
-<link rel="canonical" href="https://cohiro.app/join/">
+<title>Du wurdest zu einem Haushalt bei CoHiro eingeladen</title>
+<meta name="description" content="Jemand aus deinem Haushalt möchte bei CoHiro eine Einkaufsliste und einen Vorrat mit dir teilen.">
+<link rel="canonical" href="https://cohiro.app/de/join/">
 
-<!-- Deliberately NOT indexed. Every real visit here carries a one-off invite code in the
-     path, and a search result for someone else's invite is useless at best. -->
+<!-- Deliberately NOT indexed, for the twins' reason: a real visit carries a one-off invite
+     code in the path, and a search result for someone else's invite is useless at best.
+
+     THIS FILE IS THIN ON PURPOSE, AND IT IS NOT WHERE THE GERMAN LIVES. GitHub Pages has
+     exactly one 404.html, at the site ROOT, so /de/join/<CODE> - every German invite link
+     anybody will ever click - is served that root English file, never this one. This file can
+     only ever answer the bare /de/join/ path. Its job is to make that path a real German URL
+     (lang, title, description, canonical, og:locale) and nothing more.
+
+     The body below is the twins' English markup with the same data-i18n hooks, and /join.js
+     renders it in German because this path starts with /de/. That is what keeps the German
+     copy in ONE place - join.js's `de` object - rather than in a third file free to drift
+     from the page real invites actually get. THE COST, recorded rather than hidden: with
+     JavaScript disabled this page declares lang="de" and shows English. It buys a single
+     source for the German on a path no invite link reaches, and the page invite links DO
+     reach cannot be a German file under any design.
+
+     DO NOT ADD de/404.html. GitHub Pages ignores it - one 404 per site, at the root. -->
 <meta name="robots" content="noindex, follow">
 
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://cohiro.app/join/">
-<meta property="og:title" content="You have been invited to a household on CoHiro">
-<meta property="og:description" content="Someone you live with wants to share a shopping list and household inventory with you.">
+<meta property="og:url" content="https://cohiro.app/de/join/">
+<meta property="og:title" content="Du wurdest zu einem Haushalt bei CoHiro eingeladen">
+<meta property="og:description" content="Jemand aus deinem Haushalt möchte eine Einkaufsliste und einen Vorrat mit dir teilen.">
 <meta property="og:image" content="https://cohiro.app/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="CoHiro">
+<meta property="og:locale" content="de_DE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#211E2B" media="(prefers-color-scheme: dark)">
@@ -55,8 +72,8 @@
      the file where the Pages 404 trick is worth explaining. -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
- {"@type":"ListItem","position":1,"name":"Home","item":"https://cohiro.app/"},
- {"@type":"ListItem","position":2,"name":"Join a household","item":"https://cohiro.app/join/"}]}
+ {"@type":"ListItem","position":1,"name":"Startseite","item":"https://cohiro.app/"},
+ {"@type":"ListItem","position":2,"name":"Haushalt beitreten","item":"https://cohiro.app/de/join/"}]}
 </script>
 </head>
 <body>

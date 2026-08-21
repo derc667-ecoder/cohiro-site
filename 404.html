@@ -39,13 +39,22 @@
      screen) was applied to join/index.html, verified by fetching /join/, reported as done, and
      never once served to a person holding a real invite link.
 
-     NOW SHARED, so one edit lands on both pages:
-       - the CSS for .code and .steps, in /style.css under "Invite pages"
-       - the code-extraction script, in /join.js
+     THE SAME RULE IS WHY THERE IS NO GERMAN INVITE PAGE. Pages has exactly one 404.html, so
+     /de/join/<CODE> is served THIS file too. The German therefore cannot be a file; it is a
+     runtime swap, and EVERY user-facing string below carries a data-i18n hook that /join.js
+     looks up in its `de` object (with data-de-href beside it where a link has a German target,
+     and data-de-label where the string is one a screen reader speaks). KEEP THE HOOKS: a
+     string that loses its hook stays English for every German reader, and nothing about the
+     page will look wrong in English while it happens. There is a third file with this same
+     body, de/join/index.html, localised by the same script.
 
-     STILL DUPLICATED, so it must be edited TWICE: everything else in these two files - the
-     whole body markup and copy, <title>, the description, the canonical link, the Open Graph
-     tags and the breadcrumb JSON-LD. As of this refactor the two files are identical apart
+     NOW SHARED, so one edit lands on every copy:
+       - the CSS for .code and .steps, in /style.css under "Invite pages"
+       - the code-extraction script AND the whole German catalog, in /join.js
+
+     STILL DUPLICATED, so it must be edited in EVERY copy: the body markup and its English
+     copy, plus the head - <title>, the description, the canonical link, the Open Graph tags
+     and the breadcrumb JSON-LD. As of this change the two English files are identical apart
      from the indexing comment above, which is deliberately longer in 404.html because that is
      the file where the Pages 404 trick is worth explaining. -->
 <script type="application/ld+json">
@@ -55,48 +64,52 @@
 </script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 <div class="wrap">
 <header class="site">
   <a class="wordmark" href="/"><span class="co">Co</span>Hiro<span class="dot">.</span></a>
 </header>
 <main id="main">
-<nav class="small muted" aria-label="Breadcrumb" style="margin:0 0 1rem">
-  <a href="/">Home</a> &rsaquo; <span aria-current="page">Join a household</span>
+<!-- TODO(task 6): the German rendering points Startseite at the ENGLISH home, here and in the
+     footer, because /de/ does not exist yet. de/privacy/ and de/terms/ carry the same TODO. -->
+<nav class="small muted" aria-label="Breadcrumb" data-de-label="crumbNav" style="margin:0 0 1rem">
+  <a href="/" data-i18n="home">Home</a> &rsaquo; <span aria-current="page" data-i18n="crumb">Join a household</span>
 </nav>
-  <h1>You have been invited</h1>
-  <p class="lede">Someone you live with wants to share a shopping list and household inventory
+  <h1 data-i18n="h1">You have been invited</h1>
+  <p class="lede" data-i18n="lede">Someone you live with wants to share a shopping list and household inventory
   with you on CoHiro.</p>
 
   <div class="card">
-    <p class="small muted" style="margin:0">Your invite code</p>
-    <p class="code" id="code">check your message</p>
-    <p class="small muted" id="hint" style="margin:0.6rem 0 0">If you already have CoHiro, this
+    <p class="small muted" style="margin:0" data-i18n="codeLabel">Your invite code</p>
+    <p class="code" id="code" data-i18n="noCode">check your message</p>
+    <p class="small muted" id="hint" style="margin:0.6rem 0 0" data-i18n="hint">If you already have CoHiro, this
     link opens it straight at the join screen.</p>
   </div>
 
-  <h2>How to join</h2>
+  <h2 data-i18n="howTo">How to join</h2>
   <ol class="steps">
-    <li>Install CoHiro. It is <strong>on the App&nbsp;Store</strong>, and coming soon to <strong>Google&nbsp;Play</strong>.</li>
-    <li>Create an account, or sign in if you already have one.</li>
-    <li>Go to the <strong>Household</strong> tab, choose <strong>Join a household</strong>, and
+    <li data-i18n="step1">Install CoHiro. It is <strong>on the App&nbsp;Store</strong>, and coming soon to <strong>Google&nbsp;Play</strong>.</li>
+    <li data-i18n="step2">Create an account, or sign in if you already have one.</li>
+    <li data-i18n="step3">Go to the <strong>Household</strong> tab, choose <strong>Join a household</strong>, and
         enter the code above.</li>
   </ol>
 
-  <h2>What is CoHiro?</h2>
-  <p>One shopping list the whole household can add to, and a picture of what is actually in the
-  cupboard. Anything that runs low puts itself on the list, so remembering is not one person's
-  job. <a href="/">More about CoHiro</a>.</p>
+  <h2 data-i18n="whatIs">What is CoHiro?</h2>
+  <p><span data-i18n="about">One shopping list the whole household can add to, and a picture of what is actually in
+  the cupboard. Anything that runs low puts itself on the list, so remembering is not one
+  person's job.</span> <a href="/" data-i18n="aboutLink">More about CoHiro</a>.</p>
 
-  <p class="small muted">An invite code lets you join one household. It expires, and whoever
+  <p class="small muted"><span data-i18n="fine">An invite code lets you join one household. It expires, and whoever
   sent it can revoke it at any time. It contains nothing about you, and nothing about them:
-  see the <a href="/privacy/">privacy policy</a>.</p>
+  see the</span> <a href="/privacy/" data-de-href="/de/privacy/" data-i18n="fineLink">privacy policy</a>.</p>
 </main>
 <footer class="site">
-  <p>CoHiro is made by Niugio UG (haftungsbeschränkt), Urbanstraße 71, 10967 Berlin, Germany.<br>
-  <a href="/">Home</a> &middot; <a href="/privacy/">Privacy</a> &middot; <a href="/terms/">Terms</a> &middot;
+  <p><span data-i18n="madeBy">CoHiro is made by Niugio UG (haftungsbeschränkt), Urbanstraße 71, 10967 Berlin, Germany.</span><br>
+  <a href="/" data-i18n="home">Home</a> &middot;
+  <a href="/privacy/" data-de-href="/de/privacy/" data-i18n="privacy">Privacy</a> &middot;
+  <a href="/terms/" data-de-href="/de/terms/" data-i18n="terms">Terms</a> &middot;
   <a href="/support/">Support</a> &middot;
-  <a href="/delete-account/">Delete your account</a> &middot;
+  <a href="/delete-account/" data-i18n="del">Delete your account</a> &middot;
   <a href="https://niugio.com/impressum.html">Impressum</a></p>
 </footer>
 </div>
