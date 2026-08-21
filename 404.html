@@ -23,6 +23,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="CoHiro">
+<meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#211E2B" media="(prefers-color-scheme: dark)">
@@ -41,9 +42,12 @@
 
      THE SAME RULE IS WHY THERE IS NO GERMAN INVITE PAGE. Pages has exactly one 404.html, so
      /de/join/<CODE> is served THIS file too. The German therefore cannot be a file; it is a
-     runtime swap, and EVERY user-facing string below carries a data-i18n hook that /join.js
+     runtime swap, and every user-facing string below carries a data-i18n hook that /join.js
      looks up in its `de` object (with data-de-href beside it where a link has a German target,
-     and data-de-label where the string is one a screen reader speaks). KEEP THE HOOKS: a
+     and data-de-label where the string is one a screen reader speaks). The only two strings
+     without a hook are the wordmark and "Impressum", which read the same in both languages.
+     A hook was missing from the footer's Support link until 2026-08-21, and the sentence you
+     are reading claimed otherwise the whole time. KEEP THE HOOKS: a
      string that loses its hook stays English for every German reader, and nothing about the
      page will look wrong in English while it happens. There is a third file with this same
      body, de/join/index.html, localised by the same script.
@@ -70,8 +74,9 @@
   <a class="wordmark" href="/"><span class="co">Co</span>Hiro<span class="dot">.</span></a>
 </header>
 <main id="main">
-<!-- TODO(task 6): the German rendering points Startseite at the ENGLISH home, here and in the
-     footer, because /de/ does not exist yet. de/privacy/ and de/terms/ carry the same TODO. -->
+<!-- TODO(de-home): the German rendering points Startseite at the ENGLISH home, here and in
+     the footer, because /de/ does not exist yet. The four static German pages carry the same
+     marker. Renamed from the task-6 marker on 2026-08-21: that task is done, this outlived it. -->
 <nav class="small muted" aria-label="Breadcrumb" data-de-label="crumbNav" style="margin:0 0 1rem">
   <a href="/" data-i18n="home">Home</a> &rsaquo; <span aria-current="page" data-i18n="crumb">Join a household</span>
 </nav>
@@ -108,8 +113,8 @@
   <a href="/" data-i18n="home">Home</a> &middot;
   <a href="/privacy/" data-de-href="/de/privacy/" data-i18n="privacy">Privacy</a> &middot;
   <a href="/terms/" data-de-href="/de/terms/" data-i18n="terms">Terms</a> &middot;
-  <a href="/support/">Support</a> &middot;
-  <a href="/delete-account/" data-i18n="del">Delete your account</a> &middot;
+  <a href="/support/" data-de-href="/de/support/" data-i18n="support">Support</a> &middot;
+  <a href="/delete-account/" data-de-href="/de/delete-account/" data-i18n="del">Delete your account</a> &middot;
   <a href="https://niugio.com/impressum.html">Impressum</a></p>
 </footer>
 </div>

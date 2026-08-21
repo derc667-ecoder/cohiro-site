@@ -47,6 +47,7 @@ var de = {
   madeBy: 'CoHiro kommt von der Niugio UG (haftungsbeschränkt), Urbanstraße 71, 10967 Berlin, Germany.',
   privacy: 'Datenschutz',
   terms: 'Nutzungsbedingungen',
+  support: 'Hilfe',
   del: 'Konto löschen',
   title: 'Du wurdest zu einem Haushalt bei CoHiro eingeladen',
   titleCode: 'Haushalt bei CoHiro beitreten mit Code ',
