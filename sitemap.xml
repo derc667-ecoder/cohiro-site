@@ -1,31 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Hand-maintained: there is no build step here on purpose, so adding a page means
-     adding four lines below. Keep lastmod honest; a date that never changes is worse
-     than no date at all. -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     adding an entry below. Keep lastmod honest; a date that never changes is worse
+     than no date at all.
+
+     WHAT IS IN HERE, AND WHY IT IS NOT EVERY PAGE. A sitemap is a list of urls asking
+     to be indexed, so a noindex url in it is the file contradicting itself. The rule
+     is therefore mechanical rather than a matter of taste: read the page's own
+     <meta name="robots"> and let that decide.
+
+         grep -L 'name="robots"' $(find . -name '*.html' -not -path './.git/*')
+
+     LEFT OUT, all five of them noindex and each for its own reason:
+       404.html               noindex, and it has no url of its own at all - Pages
+                              serves it at every path that is not a file, which is
+                              exactly how a real /join/<CODE> invite link resolves.
+       join/, de/join/        noindex: an invite page is meant for one person holding
+                              one code, not for a search result.
+       confirmed/,            noindex: the page you land on from a confirmation email,
+       de/confirmed/          useless to anyone who did not just click that link.
+
+     LASTMOD IS DERIVED, NEVER TYPED. Each date below is the commit date of that one
+     file's own last commit, read out of git rather than guessed. The copy-pasteable
+     one-liner is in README.md and not here, because an XML comment may not contain two
+     consecutive hyphens and every git flag it needs has a pair in front of it - which is
+     also the first way this file was made unparseable, in the same hour it was written.
+
+     All ten read 2026-08-21 today, and that is not a rubber stamp: the hreflang set and
+     the visible language switcher went into every one of these pages on 2026-08-21. When
+     you next touch one page, move that one line, not the block.
+
+     THE ALTERNATES ARE THE SAME CLAIM THE PAGES MAKE, WRITTEN TWICE ON PURPOSE. Google
+     reads hreflang from a sitemap as well as from a <head>, and the two have to agree:
+     every url below carries the full trio (en, de, x-default), including the
+     self-reference, and the German entries carry the identical set to their English
+     twins rather than a one-way pointer home. x-default is the ENGLISH url, because
+     English is this site's root and cannot move - /privacy/ and /terms/ are hardcoded
+     in shipped store binaries and in the Google OAuth client, and Pages cannot issue a
+     301. .github/check-hreflang.py proves the <head> half; the copy here is the half no
+     script reads yet, so it is worth re-checking by eye against the pages when you edit
+     it. The xmlns:xhtml declaration on <urlset> is load-bearing: without it every
+     xhtml:link below is an undeclared prefix and the WHOLE file fails to parse, which
+     Search Console reports as a rejected sitemap and the site itself shows no sign of. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Home -->
   <url>
     <loc>https://cohiro.app/</loc>
-    <lastmod>2026-08-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/"/>
+    <lastmod>2026-08-21</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://cohiro.app/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/"/>
+    <lastmod>2026-08-21</lastmod>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Privacy policy. Both app stores link to the English url. -->
+  <url>
     <loc>https://cohiro.app/privacy/</loc>
-    <lastmod>2026-08-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/privacy/"/>
+    <lastmod>2026-08-21</lastmod>
     <priority>0.8</priority>
   </url>
-<url>
+  <url>
+    <loc>https://cohiro.app/de/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/privacy/"/>
+    <lastmod>2026-08-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Terms of service -->
+  <url>
     <loc>https://cohiro.app/terms/</loc>
-    <lastmod>2026-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/terms/"/>
+    <lastmod>2026-08-21</lastmod>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://cohiro.app/de/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/terms/"/>
+    <lastmod>2026-08-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Support -->
   <url>
     <loc>https://cohiro.app/support/</loc>
-    <lastmod>2026-08-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/support/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/support/"/>
+    <lastmod>2026-08-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cohiro.app/delete-account/</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://cohiro.app/de/support/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/support/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/support/"/>
+    <lastmod>2026-08-21</lastmod>
     <priority>0.6</priority>
   </url>
+
+  <!-- Account deletion. Google Play requires this one to be reachable without signing in. -->
+  <url>
+    <loc>https://cohiro.app/delete-account/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/delete-account/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/delete-account/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/delete-account/"/>
+    <lastmod>2026-08-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cohiro.app/de/delete-account/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cohiro.app/delete-account/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cohiro.app/de/delete-account/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cohiro.app/delete-account/"/>
+    <lastmod>2026-08-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>

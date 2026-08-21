@@ -37,6 +37,22 @@ It exists because four separate things need a real HTTPS page on the app's own d
   ```
   The three invite pages are the deliberate exception and carry **no** `hreflang` at all; the
   reason is in their own `<head>`, and the script fails if one ever grows some.
+- **`sitemap.xml` is hand-maintained, lists both languages, and lists nothing that is
+  `noindex`.** Adding a page means adding an entry with the full `xhtml:link` trio, in both
+  directions - a sitemap that lists only the English half quietly tells Google the German half
+  is second-class. What belongs in it is decided by the page's own `<meta name="robots">`, never
+  by taste, so the five `noindex` pages (`404.html`, the two invite pages, the two `confirmed/`
+  pages) stay out. `lastmod` is read out of git, never typed:
+  ```bash
+  for f in $(python3 -c "import re;print(' '.join(re.findall(r'<loc>https://cohiro.app/(.*?)</loc>',open('sitemap.xml').read())))"); do
+    printf '%-24s %s\n' "/$f" "$(git log -1 --format=%cs -- "${f}index.html")"
+  done
+  ```
+  And check it parses before pushing, because a malformed sitemap is silent - Search Console
+  rejects it and nothing on the site looks wrong:
+  ```bash
+  python3 -c "import xml.dom.minidom; xml.dom.minidom.parse('sitemap.xml'); print('sitemap parses')"
+  ```
 - **No automatic redirect on `navigator.language`, anywhere except the invite page.** An
   auto-redirect overrides a language somebody deliberately chose and destroys the shareability
   of the link they were sent. `/join.js` guesses, and is the documented exception, because its
