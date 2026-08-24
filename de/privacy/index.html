@@ -63,7 +63,7 @@
 selbst (Abschnitt 10). Die
 <a href="https://niugio.com/datenschutz">Datenschutzerklärung für niugio.com</a> ist davon
 getrennt und gilt nur für jene Website.</p>
-<p class="small">Zuletzt aktualisiert: 21. August 2026.</p>
+<p class="small">Zuletzt aktualisiert: 24. August 2026.</p>
 
 
 <div class="card">
@@ -139,8 +139,10 @@ schreib uns, dann entfernen wir es.</p>
   die du einschaltest: die Daten, die wir brauchen, um CoHiro bereitzustellen.</li>
   <li><strong>Berechtigte Interessen (Artikel 6 Abs. 1 lit. f):</strong> Absturz- und
   Diagnoseberichte (zu erfahren, dass die App kaputt ist, damit wir sie reparieren können), der
-  grüne Punkt (die Abstimmung im Haushalt) und das Lesen des Feedbacks, das du uns von dir aus
-  schickst. Diesen Verarbeitungen kannst du jederzeit widersprechen (Abschnitt 9).</li>
+  grüne Punkt (die Abstimmung im Haushalt), das Lesen des Feedbacks, das du uns von dir aus
+  schickst, und dass das, was du in einen geteilten Haushalt eingetragen hast, nach der Löschung
+  deines Kontos dort bleibt (das Interesse der übrigen Mitglieder, die es weiter benutzen,
+  Abschnitt 8). Diesen Verarbeitungen kannst du jederzeit widersprechen (Abschnitt 9).</li>
   <li><strong>Einwilligung (Artikel 6 Abs. 1 lit. a):</strong> dich zu deinem Feedback zu
   kontaktieren. Der Schalter ist aus, solange du ihn nicht einschaltest, und du kannst deine
   Einwilligung jederzeit widerrufen.</li>
@@ -169,10 +171,11 @@ von außerhalb der EU verbunden sein, abgesichert durch die unten genannten Gara
 <p>Wir nutzen die folgenden Dienstleister und sonstigen Empfänger:</p>
 <table>
   <tr><th>Wer</th><th>Wofür</th><th>Wo</th></tr>
-  <tr><td>Supabase</td><td>Um dein Konto und alles in deinen Haushalten zu speichern</td><td>Frankfurt, Deutschland (die Datenbank und die Anmeldung)</td></tr>
+  <tr><td>Supabase</td><td>Um dein Konto und alles in deinen Haushalten zu speichern</td><td>Frankfurt, Deutschland (die Datenbank und die Anmeldung, betrieben auf Amazon Web Services)</td></tr>
   <tr><td>Sentry</td><td>Für Absturz- und Diagnoseberichte</td><td>Europäische Union (die Berichte selbst)</td></tr>
-  <tr><td>Resend</td><td>Für die E-Mails, die wir dir schicken, und für dein Feedback, das uns als E-Mail erreicht</td><td>Versendet aus Irland, gespeichert in den Vereinigten Staaten</td></tr>
+  <tr><td>Resend</td><td>Für die E-Mails, die wir dir schicken, und für dein Feedback, das uns als E-Mail erreicht</td><td>Versendet aus Irland über Amazon SES, gespeichert in den Vereinigten Staaten</td></tr>
   <tr><td>Expo, Apple, Google</td><td>Um Benachrichtigungen zuzustellen, nur wenn du sie einschaltest</td><td>Außerhalb der EU</td></tr>
+  <tr><td>Google Workspace</td><td>Für unser Support-Postfach: E-Mails, die du uns schickst, Feedback eingeschlossen, kommen dort an und werden dort gespeichert</td><td>Googles Rechenzentren, innerhalb und außerhalb der EU</td></tr>
 </table>
 <p>Soweit ein Dienstleister personenbezogene Daten in unserem Auftrag verarbeitet, ist er
 vertraglich verpflichtet, sie nur auf unsere dokumentierte Weisung zu verarbeiten, soweit nicht
@@ -210,14 +213,16 @@ Analysedienste, und es gibt kein Profiling irgendeiner Art.</p>
 <h2>8. Aufbewahrung und Kontolöschung</h2>
 <p>Dein Konto und seine Inhalte bleiben, bis du sie löschst: Es gibt keinen automatischen Ablauf,
 und wir löschen keine inaktiven Konten. Die Aktivitätshistorie eines Haushalts wird nach zwei
-Jahren automatisch entfernt. Absturzberichte werden von Sentry nach 30 Tagen gelöscht.</p>
+Jahren automatisch entfernt. Feedback wird spätestens zwei Jahre, nachdem du es geschickt hast,
+gelöscht. Absturzberichte werden von Sentry nach 30 Tagen gelöscht.</p>
 <p>Du kannst dein Konto selbst löschen, in der App unter Konto; die vollständige Anleitung steht
 auf der <a href="/de/delete-account/">Seite zur Kontolöschung</a>. Die Löschung entfernt deine
 E-Mail-Adresse, deinen Anzeigenamen, deine Einstellungen, die Einträge zu deinen Geräten, die
 Identität, die Apple oder Google uns übergeben hat, und alle Screenshots, die du an dein Feedback
 angehängt hast. Der Wortlaut deines Feedbacks bleibt gespeichert, solange er für das gemeldete
-Problem noch relevant ist, wird aber nicht mehr dir zugeordnet. Danach wird er gelöscht. Schreib
-uns, wenn du ihn früher entfernen lassen möchtest. Ist eine Löschung abgeschlossen, behalten wir
+Problem noch relevant ist, wird aber nicht mehr dir zugeordnet. Danach wird er gelöscht. Dasselbe gilt für
+die Kopie in unserem Support-Postfach. Schreib uns, wenn du ihn früher entfernen lassen
+möchtest. Ist eine Löschung abgeschlossen, behalten wir
 über das Konto keine Aufzeichnungen, die über kurzlebige Betriebsprotokolle hinausgehen.</p>
 <p>Was die Löschung nicht entfernt: In einem Haushalt, den du mit anderen geteilt hast, bleiben
 die Dinge, die du hinzugefügt hast, weil die anderen sie weiter benutzen; sie tragen nur deinen
@@ -232,7 +237,7 @@ gegeben hast, in einem übertragbaren, maschinenlesbaren Format zu erhalten
 (Datenübertragbarkeit). Vieles davon kannst du selbst in der App tun; für den Rest schreib an
 <a href="mailto:support@cohiro.app">support@cohiro.app</a>.</p>
 <p>Wo wir uns auf ein berechtigtes Interesse stützen (Absturzberichte, der grüne Punkt, das Lesen
-deines Feedbacks), kannst du jederzeit Widerspruch einlegen: Nutze den Ausschalter, wo es einen
+deines Feedbacks, was deinem früheren Haushalt bleibt), kannst du jederzeit Widerspruch einlegen: Nutze den Ausschalter, wo es einen
 gibt, oder schreib uns. Wo wir uns auf deine Einwilligung stützen (dass wir dich zu deinem
 Feedback kontaktieren dürfen), kannst du sie jederzeit widerrufen, ohne dass das etwas berührt,
 was vorher geschehen ist.</p>

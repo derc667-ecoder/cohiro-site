@@ -62,7 +62,7 @@
 <p class="lede">This covers the <strong>CoHiro app</strong>, and the cohiro.app website itself
 (section 10). The <a href="https://niugio.com/privacy">niugio.com website policy</a> is separate
 and covers only that website.</p>
-<p class="small">Last updated: 21 August 2026.</p>
+<p class="small">Last updated: 24 August 2026.</p>
 
 
 <div class="card">
@@ -127,9 +127,10 @@ will remove it.</p>
   everything your households put in, invites, and the features you turn on: the data that
   providing CoHiro consists of.</li>
   <li><strong>Legitimate interests (Article 6(1)(f)):</strong> crash and diagnostic reports
-  (learning the app is broken so we can fix it), the online dot (household coordination), and
-  reading the feedback you choose to send. You can object to any of these at any time
-  (section 9).</li>
+  (learning the app is broken so we can fix it), the online dot (household coordination),
+  reading the feedback you choose to send, and keeping what you added to a shared household
+  after your account is deleted (the remaining members' interest in the list they still use,
+  section 8). You can object to any of these at any time (section 9).</li>
   <li><strong>Consent (Article 6(1)(a)):</strong> contacting you about your feedback. The switch
   is off unless you turn it on, and you can withdraw consent at any time.</li>
   <li><strong>Legal obligation (Article 6(1)(c)):</strong> the processing the law itself requires
@@ -153,10 +154,11 @@ below.</p>
 <p>We use the following service providers and other recipients:</p>
 <table>
   <tr><th>Who</th><th>What for</th><th>Where</th></tr>
-  <tr><td>Supabase</td><td>Storing your account and everything in your households</td><td>Frankfurt, Germany (the database and sign-in)</td></tr>
+  <tr><td>Supabase</td><td>Storing your account and everything in your households</td><td>Frankfurt, Germany (the database and sign-in, running on Amazon Web Services)</td></tr>
   <tr><td>Sentry</td><td>Crash and diagnostic reports</td><td>European Union (the reports themselves)</td></tr>
-  <tr><td>Resend</td><td>The emails we send you, and your feedback, which reaches us as email</td><td>Sent from Ireland, stored in the United States</td></tr>
+  <tr><td>Resend</td><td>The emails we send you, and your feedback, which reaches us as email</td><td>Sent from Ireland via Amazon SES, stored in the United States</td></tr>
   <tr><td>Expo, Apple, Google</td><td>Delivering notifications, only if you turn them on</td><td>Outside the EU</td></tr>
+  <tr><td>Google Workspace</td><td>Our support inbox: receiving and storing the email you send us, feedback included</td><td>Google's data centres, inside and outside the EU</td></tr>
 </table>
 <p>Where a provider processes personal data on our behalf, it is contractually bound to process
 it only on our documented instructions, except where the law requires otherwise. Where personal
@@ -189,13 +191,14 @@ services, and there is no profiling of any kind.</p>
 <h2>8. Retention and account deletion</h2>
 <p>Your account and its contents are kept until you delete them: there is no automatic expiry,
 and we do not delete inactive accounts. The household activity history is removed automatically
-after two years. Crash reports are deleted by Sentry after 30 days.</p>
+after two years. Feedback is deleted at the latest two years after it was sent. Crash reports
+are deleted by Sentry after 30 days.</p>
 <p>You can delete your account yourself, in the app under Account; full instructions are on the
 <a href="/delete-account/">account deletion page</a>. Deletion removes your email address,
 display name, settings, device records, the identity Apple or Google passed to us, and any
 screenshots you attached to feedback. The words of your feedback are kept, no longer linked to
-you, while they remain relevant to the issue you reported, and are then deleted; email us if you
-want them removed sooner. Once a deletion completes, we keep no record of the account beyond
+you, while they remain relevant to the issue you reported, and are then deleted; the same applies
+to the copy in our support inbox. Email us if you want them removed sooner. Once a deletion completes, we keep no record of the account beyond
 short-lived operational logs.</p>
 <p>What deletion does not remove: in a household you shared with others, the things you added
 stay, because the others still use them; they simply stop carrying your name. If you ran that
@@ -207,8 +210,8 @@ deleted with your account, immediately and irreversibly.</p>
 used, to object to its use, or to receive what you gave us in a portable, machine-readable form.
 Much of this you can do in the app; for the rest, write to
 <a href="mailto:support@cohiro.app">support@cohiro.app</a>.</p>
-<p>Where we rely on a legitimate interest (crash reports, the online dot, reading feedback), you
-can object at any time: use the off switch where one exists, or write to us. Where we rely on
+<p>Where we rely on a legitimate interest (crash reports, the online dot, reading feedback,
+entries kept for your former household), you can object at any time: use the off switch where one exists, or write to us. Where we rely on
 your consent (being contacted about feedback), you can withdraw it at any time, without affecting
 anything done before.</p>
 <p>You also have the right to complain to a supervisory authority. Ours is the Berliner
