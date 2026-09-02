@@ -244,3 +244,20 @@ footer.site a { color: var(--muted); }
   }
   .btn { color: #211E2B; }
 }
+
+/* Official store badges (owner mock round 2026-09-02). Apple's SVG has no internal padding;
+   Google's PNG carries ~25% built-in clear space, so its img height is larger for the same
+   VISUAL height. Vertical-align middle keeps the pair on one optical line. */
+.store-badges { display: flex; align-items: center; gap: 0.9rem; margin: 0.9rem 0 0.2rem; flex-wrap: wrap; }
+.store-badges img { display: block; }
+.store-badges a { line-height: 0; }
+.store-badges-footer { justify-content: flex-start; margin-top: 0.8rem; opacity: 0.92; }
+
+/* The mini store-front card (owner rounds 2026-09-02): store-listing title, equal-height
+   official badges (Google's PNG carries ~26% built-in padding: 73px file = 54px visual box),
+   Pip centered right, hidden narrow so the badges never wrap. */
+.card-with-pip { position: relative; }
+.card-title { font-size: 1.16rem; color: #3A3350; padding-right: 140px; }
+.card-title .wordmark-co { color: #7C5CD6; }
+.card-with-pip .card-pip { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); }
+@media (max-width: 560px) { .card-title { padding-right: 0; } .card-with-pip .card-pip { display: none; } }
