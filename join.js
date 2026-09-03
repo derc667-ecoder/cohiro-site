@@ -43,7 +43,7 @@ var de = {
   noCode: 'sieh in deiner Nachricht nach',
   hint: 'Wenn du CoHiro schon hast, öffnet dieser Link die App direkt zum Beitreten.',
   howTo: 'So trittst du bei',
-  step1: 'Installiere CoHiro. Die App gibt es *im App\u00a0Store*, bald auch bei *Google\u00a0Play*.',
+  step1: 'Installiere CoHiro. Die App gibt es *im App\u00a0Store* und bei *Google\u00a0Play*.',
   step2: 'Erstelle ein Konto oder melde dich an, wenn du schon eines hast.',
   step3: 'Öffne den Tab *Haushalt*, wähle *Haushalt beitreten* und gib den Code oben ein.',
   whatIs: 'Was ist CoHiro?',
