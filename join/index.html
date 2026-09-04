@@ -153,7 +153,16 @@
 
   <h2 data-i18n="howTo">How to join</h2>
   <ol class="steps">
-    <li data-i18n="step1">Install CoHiro. It is <strong>on the App&nbsp;Store</strong> and <strong>Google&nbsp;Play</strong>.</li>
+    <li><span data-i18n="step1">Install CoHiro. It is <strong>on the App&nbsp;Store</strong> and <strong>Google&nbsp;Play</strong>.</span>
+        <!-- The badges nest BESIDE the i18n span, never inside a [data-i18n] node: the German
+             swap rebuilds such a node's children wholesale, so badges inside it are destroyed
+             at runtime - found live in the 2026-09-04 mock round, not by reasoning. Same span
+             idiom as the "about" paragraph below. German art + alt arrive via
+             data-de-src / data-de-alt, which /join.js swaps alongside the catalog. -->
+        <p class="store-badges store-badges-step">
+          <a href="https://apps.apple.com/app/id6798588149" target="_blank" rel="noopener"><img src="/assets/badges/app-store-en.svg" data-de-src="/assets/badges/app-store-de.svg" alt="Download on the App Store" data-de-alt="Laden im App Store" height="44"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.niugio.listr" target="_blank" rel="noopener"><img src="/assets/badges/google-play-en.png" data-de-src="/assets/badges/google-play-de.png" alt="Get it on Google Play" data-de-alt="Jetzt bei Google Play" height="60"></a>
+        </p></li>
     <li data-i18n="step2">Create an account, or sign in if you already have one.</li>
     <li data-i18n="step3">Go to the <strong>Household</strong> tab, choose <strong>Join a household</strong>, and
         enter the code above.</li>

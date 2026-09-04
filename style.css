@@ -252,6 +252,7 @@ footer.site a { color: var(--muted); }
 .store-badges img { display: block; }
 .store-badges a { line-height: 0; }
 .store-badges-footer { justify-content: flex-start; margin-top: 0.8rem; opacity: 0.92; }
+.store-badges-step { margin: 0.55rem 0 0.15rem; }  /* inside the invite page's step 1 (owner round 2026-09-04): 44px visual, so the pair fits side by side at 375px */
 
 /* The mini store-front card (owner rounds 2026-09-02): store-listing title, equal-height
    official badges (Google's PNG carries ~26% built-in padding: 73px file = 54px visual box),

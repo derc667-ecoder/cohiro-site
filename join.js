@@ -97,7 +97,7 @@ var de = {
     // honestly labelled English under a German <head>. Once the German is in, the body is German.
     document.body.lang = 'de';
     document.title = de.title;
-    document.querySelectorAll('[data-i18n],[data-de-href],[data-de-label]').forEach(function (n) {
+    document.querySelectorAll('[data-i18n],[data-de-href],[data-de-label],[data-de-src],[data-de-alt]').forEach(function (n) {
       var s = de[n.dataset.i18n];
       // Built as text nodes, never as markup: the only thing this page ever renders as HTML is
       // the HTML file itself. Odd pieces of the split are the *emphasised* ones.
@@ -111,6 +111,11 @@ var de = {
       }
       if (n.dataset.deHref) n.setAttribute('href', n.dataset.deHref);
       if (n.dataset.deLabel) n.setAttribute('aria-label', de[n.dataset.deLabel]);
+      // The store badges are IMAGES of words, so localizing them means swapping the art and
+      // its alt together - both carried as literals on the img (like data-de-href), because
+      // the German alt is the badge's own official wording, not catalog copy.
+      if (n.dataset.deSrc) n.setAttribute('src', n.dataset.deSrc);
+      if (n.dataset.deAlt) n.setAttribute('alt', n.dataset.deAlt);
     });
   }
 
