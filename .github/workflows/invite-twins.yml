@@ -69,7 +69,13 @@ jobs:
           # Comments go, and so do the blank lines they leave behind: the two files' comment
           # blocks are deliberately different shapes, and a guard that reddens over a blank line
           # is one somebody switches off.
-          strip() { perl -0777 -pe 's/<!--.*?-->//gs' "$1" | sed '/^[[:space:]]*$/d'; }
+          # The og:image LINE is the one sanctioned divergence (2026-09-01 round, guard
+          # taught 2026-09-04): join/index.html serves the per-language card og-join-en.png,
+          # while 404.html answers BOTH /join/<CODE> and /de/join/<CODE> and cannot know its
+          # language, so it keeps the generic og.png - a deliberate, owner-picked pair. Only
+          # that one line is dropped before the diff; og:image:width/height and every other
+          # head line stay guarded.
+          strip() { perl -0777 -pe 's/<!--.*?-->//gs' "$1" | grep -v '^<meta property="og:image" content=' | sed '/^[[:space:]]*$/d'; }
           if diff -u <(strip join/index.html) <(strip 404.html); then
             echo "OK: the invite twins are identical apart from their comments."
           else

@@ -78,7 +78,14 @@ def strip_comments(text):
 def html_files():
     out = []
     for dirpath, dirnames, filenames in os.walk(ROOT):
-        dirnames[:] = [d for d in dirnames if d not in (".git", ".github")]
+        # og-src/ holds the OG-CARD SOURCE TEMPLATES (rendered to og*.png by hand, never
+        # served as pages - they have no url, no alternates and no switcher BY DESIGN), so
+        # they are not pages this check can hold to page rules. Excluding the directory,
+        # not the filenames: the next card source added there must not redden the build
+        # either. Added 2026-09-04, when the 2026-09-01 og-card round first put .html files
+        # in the repo that are not pages and this job went red on main for three days
+        # without anyone noticing - Pages deploys regardless of checks.
+        dirnames[:] = [d for d in dirnames if d not in (".git", ".github", "og-src")]
         for name in filenames:
             if name.endswith(".html"):
                 out.append(os.path.relpath(os.path.join(dirpath, name), ROOT))
