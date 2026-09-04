@@ -257,7 +257,7 @@ footer.site a { color: var(--muted); }
    official badges (Google's PNG carries ~26% built-in padding: 73px file = 54px visual box),
    Pip centered right, hidden narrow so the badges never wrap. */
 .card-with-pip { position: relative; }
-.card-title { font-size: 1.16rem; color: #3A3350; padding-right: 140px; }
-.card-title .wordmark-co { color: #7C5CD6; }
+.card-title { font-size: 1.16rem; color: var(--ink); padding-right: 140px; }  /* was #3A3350 = light --ink copied by VALUE, which is why dark mode never reached it (owner report 2026-09-04) */
+.card-title .wordmark-co { color: var(--lilac); }  /* was #7C5CD6 = light --lilac, same defect */
 .card-with-pip .card-pip { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); }
 @media (max-width: 560px) { .card-title { padding-right: 0; } .card-with-pip .card-pip { display: none; } }
